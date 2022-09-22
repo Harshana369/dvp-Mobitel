@@ -25,8 +25,6 @@ import AppCurrentVisits2 from '../components/_dashboard/MobitelProjectsSiteEngin
 import AppCurrentVisits3 from '../components/_dashboard/MobitelProjectsSiteEngineers/New folder/AppCurrentVisits3';
 import AppCurrentVisits4 from '../components/_dashboard/MobitelProjectsSiteEngineers/New folder/AppCurrentVisits4';
 import AppCurrentVisits5 from '../components/_dashboard/MobitelProjectsSiteEngineers/New folder/AppCurrentVisits5';
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 
 export default function MobitelProjectsSiteEngineers() {
   const axiosInstance = axios.create({ baseURL: process.env.REACT_APP_API_URL });

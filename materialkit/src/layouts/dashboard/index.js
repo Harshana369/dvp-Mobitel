@@ -1,45 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link as RouterLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import CryptoJS from 'react-native-crypto-js';
 // material
 import { styled } from '@mui/material/styles';
-import { Box } from '@mui/material';
 //
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
-import Logo from '../../components/Logo';
-import Scrollbar from '../../components/Scrollbar';
-import NavSection from '../../components/NavSection';
-import sidebarConfig from './SidebarConfig';
 import Empty from './Empty';
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 70;
-// const DRAWER_WIDTH = 235;
 
 const RootStyle = styled('div')({
   display: 'flex',
   minHeight: '100%',
   overflow: 'hidden'
 });
-
-const renderContent = (
-  <Scrollbar
-    sx={{
-      height: '100%',
-      '& .simplebar-content': { height: '100%', display: 'flex', flexDirection: 'column' }
-    }}
-  >
-    <Box sx={{ px: 2.5, py: 3 }}>
-      <Box component={RouterLink} to="/dashboard/home" sx={{ display: 'inline-flex' }}>
-        <Logo />
-      </Box>
-    </Box>
-    <NavSection navConfig={sidebarConfig} />
-    <Box sx={{ flexGrow: 1 }} />
-  </Scrollbar>
-);
 
 const MainStyle = styled('div')(({ theme }) => ({
   flexGrow: 1,
@@ -59,8 +36,7 @@ export default function DashboardLayout({ isOpenSidebar, onCloseSidebar, onOpenS
   const [open, setOpen] = useState(false);
   const [fullScreenMode, setfullScreenMode] = useState('on');
 
-  const [jsonDecInfo, setjsonDecInfo] = useState('');
-  const userRole = jsonDecInfo.adminLevel;
+  const jsonDecInfo = '';
 
   const getUserData = () => {
     const secret = 'AuH8e#?y!E87nyVh';
@@ -69,7 +45,7 @@ export default function DashboardLayout({ isOpenSidebar, onCloseSidebar, onOpenS
     if (encryptedData) {
       const decData = CryptoJS.AES.decrypt(encryptedData, secret);
       const decInfo = decData.toString(CryptoJS.enc.Utf8);
-      setjsonDecInfo(JSON.parse(decInfo));
+      jsonDecInfo(JSON.parse(decInfo));
     }
   };
 

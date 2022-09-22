@@ -10,8 +10,7 @@ import Page from '../components/Page';
 //
 import AppWebsiteVisits2 from '../components/_dashboard/MobitelProjectsMilestones/AppWebsiteVisits2';
 import LabTabs from '../components/_dashboard/MobitelProjectsMilestones/LabTabs';
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 // --------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------
 

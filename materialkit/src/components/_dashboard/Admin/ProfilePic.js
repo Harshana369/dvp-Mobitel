@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Button, Stack } from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-/* eslint jsx-a11y/label-has-associated-control: ["error", { assert: "either" } ] */
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;

@@ -1,4 +1,5 @@
 // scroll bar
+
 import 'simplebar/src/simplebar.css';
 
 import ReactDOM from 'react-dom';
@@ -10,6 +11,7 @@ import store from './Redux/store';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
+/* eslint-disable no-use-before-define */
 
 // ----------------------------------------------------------------------
 

@@ -25,8 +25,7 @@ import AppCurrentVisits2 from '../components/_dashboard/MobitelProjectsInsights/
 import AppCurrentVisits3 from '../components/_dashboard/MobitelProjectsInsights/New folder/AppCurrentVisits3';
 import AppCurrentVisits4 from '../components/_dashboard/MobitelProjectsInsights/New folder/AppCurrentVisits4';
 import AppCurrentVisits5 from '../components/_dashboard/MobitelProjectsInsights/New folder/AppCurrentVisits5';
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 // -----------------------------------------------------------------------------------------------------------
 
 export default function MobitelProjectsInsights() {

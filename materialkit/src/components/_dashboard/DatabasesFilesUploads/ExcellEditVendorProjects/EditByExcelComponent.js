@@ -19,9 +19,6 @@ import IconButton from '@mui/material/IconButton';
 import Alert from '@mui/material/Alert';
 import { Grid, Button, Card, Container, Stack, Typography, Chip } from '@mui/material';
 import ExcellTemplate from '../../../../_mocks_/SampleExcellTemplate.xlsx';
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable global-require */
-/* eslint-disable valid-typeof */
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

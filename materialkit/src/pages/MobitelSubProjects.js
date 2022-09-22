@@ -30,9 +30,7 @@ import AppCurrentVisits3 from '../components/_dashboard/MobitelSubProjects/New f
 import AppCurrentVisits4 from '../components/_dashboard/MobitelSubProjects/New folder/AppCurrentVisits4';
 import AppCurrentVisits5 from '../components/_dashboard/MobitelSubProjects/New folder/AppCurrentVisits5';
 import { useEffect, useState } from 'react';
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable prefer-object-spread */
+
 // -------------------------------------------------------------------------------------------------------
 
 // Styles for Special_Tag input-----------------------

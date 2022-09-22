@@ -2,7 +2,7 @@
 import { Grid, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import AddNewUser from '../components/_dashboard/Admin/AddNewUser';
+import AddNewUser from '../components/_dashboard/Admin/AddNewUser.js';
 import ProfilePic from '../components/_dashboard/Admin/ProfilePic';
 
 // ------------------------------------------------------------------------------

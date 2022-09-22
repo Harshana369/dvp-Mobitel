@@ -6,7 +6,6 @@ const router = require("express").Router();
 
 // @desc    Login user
 exports.login = async (req, res, next) => {
-  console.log(req.body);
   const { email, password, data } = req.body;
 
   // Check if email and password is provided

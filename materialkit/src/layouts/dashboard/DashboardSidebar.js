@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Drawer, Stack, Typography, Avatar, Link } from '@mui/material';
+import { Box, Drawer } from '@mui/material';
 // components
 import Logo from '../../components/Logo';
 import Scrollbar from '../../components/Scrollbar';
@@ -13,7 +13,6 @@ import { MHidden } from '../../components/@material-extend';
 import sidebarConfig from './SidebarConfig';
 
 // -----------------  Left side /Side bar of the App  --------------------------------
-// eslint-disable-next-line react-hooks/exhaustive-deps
 
 const DRAWER_WIDTH = 235;
 
@@ -22,14 +21,6 @@ const RootStyle = styled('div')(({ theme }) => ({
     flexShrink: 0,
     width: DRAWER_WIDTH
   }
-}));
-
-const AccountStyle = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(2, 2.5),
-  borderRadius: theme.shape.borderRadiusSm,
-  backgroundColor: theme.palette.grey[200]
 }));
 
 // ---------------------------------------
@@ -46,7 +37,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-  }, [pathname]);
+  }, [pathname, isOpenSidebar, onCloseSidebar]);
 
   const renderContent = (
     <Scrollbar
