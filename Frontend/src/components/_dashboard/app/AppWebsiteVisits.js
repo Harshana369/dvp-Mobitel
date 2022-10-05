@@ -9,7 +9,7 @@ import { BaseOptionChart } from '../../charts';
 export default function AppWebsiteVisits({ chartData, xaxisData }) {
   const CHART_DATA = chartData;
   const xAxisData = xaxisData;
-  console.log(CHART_DATA[0].type !== 'column');
+
   const chack_type =
     CHART_DATA[0].type !== 'column'
       ? ['gradient', 'gradient', 'gradient', 'gradient', 'gradient', 'gradient']
@@ -35,8 +35,6 @@ export default function AppWebsiteVisits({ chartData, xaxisData }) {
       }
     }
   });
-
-  console.log(chartOptions);
 
   return (
     <Card>

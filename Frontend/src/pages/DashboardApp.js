@@ -626,6 +626,12 @@ export default function DashboardApp() {
     { name: 'On Air', type: 'area', data: On_Air }
   );
 
+  console.log('====================================');
+  console.log(ChartDataForAreaGraphMobitel);
+  console.log(ChartDataForAreaGraphHuawei);
+  console.log(ChartDataForAreaGraphZTE);
+  console.log('====================================');
+
   // function transparentize(value, opacity) {
   //   const alpha = opacity === undefined ? 0.5 : 1 - opacity;
   //   return colorLib(value).alpha(alpha).rgbString();
