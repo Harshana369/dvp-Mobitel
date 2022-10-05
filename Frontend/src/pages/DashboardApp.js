@@ -58,6 +58,16 @@ export default function DashboardApp() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ]);
+
+  const [ChartDataForAreaGraphMobitel, setChartDatForAreaGraphMobitel] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+
   const [ChartDataForColumnGraphHuawei, setChartDatForColumnGraphHuawei] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -66,7 +76,26 @@ export default function DashboardApp() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ]);
+
+  const [ChartDataForAreaGraphHuawei, setChartDatForAreaGraphHuawei] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+
   const [ChartDataForColumnGraphZTE, setChartDatForColumnGraphZTE] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+
+  const [ChartDataForAreaGraphZTE, setChartDatForAreaGraphZTE] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -81,6 +110,9 @@ export default function DashboardApp() {
   const [OnAirDataMobitel, setOnAirDataMobitel] = useState();
   const [HoldSitesDataMobitel, setHoldSitesDataMobitel] = useState();
   const [XaxisDataMobitel, setXaxisDataMobitel] = useState([]);
+
+  const [XaxisDataMobitelAreaGraph, setXaxisDataMobitelAreaGraph] = useState([]);
+
   const [ProjectCompletionMobitel, setProjectCompletionMobitel] = useState([]);
   const [XAxisDaysLabelMobitel, setxAxisDaysLabelMobitel] = useState([]);
   const [WeeklyProgressDataMobitel, setweeklyProgressDataMobitel] = useState([
@@ -179,6 +211,9 @@ export default function DashboardApp() {
     fetchZTEVendorProjectsLastUpdates();
     fetchHuaweiVendorProjectNames();
     fetchZTEVendorProjectNames();
+    fetchZTEVendorAreaGraphData();
+    fetchHuaweiVendorAreaGraphData();
+    fetchMobitelAreaGraphData();
   }, []);
 
   useEffect(() => {
@@ -199,6 +234,9 @@ export default function DashboardApp() {
     fetchZTEVendorProjectsLastUpdates();
     fetchHuaweiVendorProjectNames();
     fetchZTEVendorProjectNames();
+    fetchZTEVendorAreaGraphData();
+    fetchHuaweiVendorAreaGraphData();
+    fetchMobitelAreaGraphData();
   }, [MobitelDropdownValue]);
 
   useEffect(() => {
@@ -219,6 +257,9 @@ export default function DashboardApp() {
     fetchZTEVendorProjectsLastUpdates();
     fetchHuaweiVendorProjectNames();
     fetchZTEVendorProjectNames();
+    fetchZTEVendorAreaGraphData();
+    fetchHuaweiVendorAreaGraphData();
+    fetchMobitelAreaGraphData();
   }, [VendorHuaweiDropdownValue]);
 
   useEffect(() => {
@@ -239,6 +280,9 @@ export default function DashboardApp() {
     fetchZTEVendorProjectsLastUpdates();
     fetchHuaweiVendorProjectNames();
     fetchZTEVendorProjectNames();
+    fetchZTEVendorAreaGraphData();
+    fetchHuaweiVendorAreaGraphData();
+    fetchMobitelAreaGraphData();
   }, [VendorZTEDropdownValue]);
 
   const fetchMobitelColumnGraphData = () => {
@@ -249,6 +293,19 @@ export default function DashboardApp() {
       .then((res) => {
         setChartDatForColumnGraphMobitel(res.data.chartDataForFrontEnd);
         setXaxisDataMobitel(res.data.XaxisDataForTheGraphs);
+      });
+  };
+
+  // ---------AreaGraph--------------
+
+  const fetchMobitelAreaGraphData = () => {
+    axiosInstance
+      .get('/mobitelProjectsDatabasesChartDataAreaChartData', {
+        params: { Project: MobitelDropdownValue }
+      })
+      .then((res) => {
+        setChartDatForAreaGraphMobitel(res.data.chartDataForFrontEnd);
+        setXaxisDataMobitelAreaGraph(res.data.XaxisDataForTheGraphs);
       });
   };
 
@@ -289,6 +346,18 @@ export default function DashboardApp() {
       });
   };
 
+  // -------------Area Graph----------
+
+  const fetchHuaweiVendorAreaGraphData = () => {
+    axiosInstance
+      .get('/vendorProjectsDatabasesChartDataAreaChartData', {
+        params: { Project: VendorHuaweiDropdownValue }
+      })
+      .then((res) => {
+        setChartDatForAreaGraphHuawei(res.data.chartDataForFrontEnd);
+      });
+  };
+
   const fetchZTEVendorColumnGraphData = () => {
     axiosInstance
       .get('/vendorProjectsDatabasesChartDataColumnChartData', {
@@ -296,6 +365,18 @@ export default function DashboardApp() {
       })
       .then((res) => {
         setChartDatForColumnGraphZTE(res.data.chartDataForFrontEnd);
+      });
+  };
+
+  // -----------Area Graph----------
+
+  const fetchZTEVendorAreaGraphData = () => {
+    axiosInstance
+      .get('/vendorProjectsDatabasesChartDataAreaChartData', {
+        params: { Project: VendorZTEDropdownValue }
+      })
+      .then((res) => {
+        setChartDatForAreaGraphZTE(res.data.chartDataForFrontEnd);
       });
   };
 
@@ -393,6 +474,16 @@ export default function DashboardApp() {
     setVendorZTEDropdownValue(event.target.value);
   };
 
+  const showVendorProjectsUpdates = () => {
+    setVendorUpdatesIsShown(true);
+    setMobitelUpdatesIsShown(false);
+  };
+
+  const showMobitelProjectsUpdates = () => {
+    setVendorUpdatesIsShown(false);
+    setMobitelUpdatesIsShown(true);
+  };
+
   const ScopeDataVendor = ScopeDataHuawei + ScopeDataZTE;
   const HandoverDataVendor = parseInt(HandoverDataHuawei, 10) + parseInt(HandoverDataZTE, 10);
   const PATPassDataVendor = parseInt(PATPassDataHuawei, 10) + parseInt(PATPassDataZTE, 10);
@@ -478,82 +569,129 @@ export default function DashboardApp() {
     { name: 'Mobilized', type: 'column', data: Mob }
   );
 
-  const showVendorProjectsUpdates = () => {
-    setVendorUpdatesIsShown(true);
-    setMobitelUpdatesIsShown(false);
-  };
+  // -------------------ColumChart End----------------------------
 
-  const showMobitelProjectsUpdates = () => {
-    setVendorUpdatesIsShown(false);
-    setMobitelUpdatesIsShown(true);
-  };
+  // ----------------- Sum of two vendors Chart Data For Area Graph --------------------
 
-  function transparentize(value, opacity) {
-    const alpha = opacity === undefined ? 0.5 : 1 - opacity;
-    return colorLib(value).alpha(alpha).rgbString();
-  }
+  const Site_Ho_Huawei = ChartDataForAreaGraphHuawei[0];
+  const Site_HO_ZTE = ChartDataForAreaGraphZTE[0];
+  const Allvendor_Site_Ho = Site_Ho_Huawei.map((a, i) => a + Site_HO_ZTE[i]);
+  // ----------------------------------------------
+  const Installed_Huawei = ChartDataForAreaGraphHuawei[1];
+  const Installed_ZTE = ChartDataForAreaGraphZTE[1];
+  const Allvendor_Installed = Installed_Huawei.map((a, i) => a + Installed_ZTE[i]);
+  // --------------------------------------------
+  const PAT_Pass_Huawei = ChartDataForAreaGraphHuawei[2];
+  const PAT_Pass_ZTE = ChartDataForAreaGraphZTE[2];
+  const Allvendor_PAT_Pass = PAT_Pass_Huawei.map((a, i) => a + PAT_Pass_ZTE[i]);
+  // --------------------------------------------
+  const On_Air_Huawei = ChartDataForAreaGraphHuawei[3];
+  const On_Air_ZTE = ChartDataForAreaGraphZTE[3];
+  const Allvendor_On_Air = On_Air_Huawei.map((a, i) => a + On_Air_ZTE[i]);
 
-  const abc = {
-    dataLine: {
-      labels: XaxisDataMobitel,
-      datasets: [
-        {
-          label: columnChartData[0].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(80, 143, 31)'),
-          borderColor: 'rgb(80, 143, 31)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: columnChartData[0].data
-        },
-        {
-          label: columnChartData[1].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(255, 231, 0)'),
-          borderColor: 'rgb(255, 231, 0)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: columnChartData[1].data
-        },
-        {
-          label: columnChartData[2].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(45, 153, 255)'),
-          borderColor: 'rgb(45, 153, 255)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: columnChartData[2].data
-        },
-        {
-          label: columnChartData[3].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(130, 106, 249)'),
-          borderColor: 'rgb(130, 106, 249)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: columnChartData[3].data
-        },
-        {
-          label: columnChartData[4].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(44, 217, 197)'),
-          borderColor: 'rgb(44, 217, 197)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: columnChartData[4].data
-        },
-        {
-          label: columnChartData[5].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(255, 108, 64)'),
-          borderColor: 'rgb(255, 108, 64)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: columnChartData[5].data
-        }
-      ]
-    }
-  };
+  //---------------------------------------------------
+
+  const ChartDataForAreaGraphVendor = [
+    Allvendor_Site_Ho,
+    Allvendor_Installed,
+    Allvendor_PAT_Pass,
+    Allvendor_On_Air
+  ];
+
+  // ----------------- ChartDataForAreaGraph ---------------------------------------------
+
+  const Site_HO1 = ChartDataForAreaGraphMobitel[0];
+  const Site_Ho2 = ChartDataForAreaGraphVendor[0];
+  const Site_HO = Site_HO1.map((a, i) => a + Site_Ho2[i]);
+  // ----------------------------------------------
+  const Installed1 = ChartDataForAreaGraphMobitel[1];
+  const Installed2 = ChartDataForAreaGraphVendor[1];
+  const Installed = Installed1.map((a, i) => a + Installed2[i]);
+  // --------------------------------------------
+  const PAT_Pass1 = ChartDataForAreaGraphMobitel[2];
+  const PAT_Pass2 = ChartDataForAreaGraphVendor[2];
+  const PAT_Pass = PAT_Pass1.map((a, i) => a + PAT_Pass2[i]);
+  // --------------------------------------------
+  const On_Air1 = ChartDataForAreaGraphMobitel[3];
+  const On_Air2 = ChartDataForAreaGraphVendor[3];
+  const On_Air = On_Air1.map((a, i) => a + On_Air2[i]);
+
+  //-----------------------------------------------------------------------------------
+
+  const areaChartData = [];
+  areaChartData.push(
+    { name: 'Site Ho', type: 'area', data: Site_HO },
+    { name: 'installed', type: 'area', data: Installed },
+    { name: 'PAT Pass', type: 'area', data: PAT_Pass },
+    { name: 'On Air', type: 'area', data: On_Air }
+  );
+
+  // function transparentize(value, opacity) {
+  //   const alpha = opacity === undefined ? 0.5 : 1 - opacity;
+  //   return colorLib(value).alpha(alpha).rgbString();
+  // }
+
+  // const abc = {
+  //   dataLine: {
+  //     labels: XaxisDataMobitel,
+  //     datasets: [
+  //       {
+  //         label: columnChartData[0].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(80, 143, 31)'),
+  //         borderColor: 'rgb(80, 143, 31)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: columnChartData[0].data
+  //       },
+  //       {
+  //         label: columnChartData[1].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(255, 231, 0)'),
+  //         borderColor: 'rgb(255, 231, 0)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: columnChartData[1].data
+  //       },
+  //       {
+  //         label: columnChartData[2].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(45, 153, 255)'),
+  //         borderColor: 'rgb(45, 153, 255)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: columnChartData[2].data
+  //       },
+  //       {
+  //         label: columnChartData[3].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(130, 106, 249)'),
+  //         borderColor: 'rgb(130, 106, 249)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: columnChartData[3].data
+  //       },
+  //       {
+  //         label: columnChartData[4].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(44, 217, 197)'),
+  //         borderColor: 'rgb(44, 217, 197)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: columnChartData[4].data
+  //       },
+  //       {
+  //         label: columnChartData[5].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(255, 108, 64)'),
+  //         borderColor: 'rgb(255, 108, 64)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: columnChartData[5].data
+  //       }
+  //     ]
+  //   }
+  // };
 
   const a = [
     { name: columnChartData[0].name, type: 'area', data: columnChartData[0].data },
@@ -645,13 +783,13 @@ export default function DashboardApp() {
           <Grid item xs={12} sm={6} md={2.4}>
             <AppBugReports holdData={HoldSitesData} />
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+          {/* <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <MDBContainer style={{ backgroundColor: 'rgb(4, 20, 38)', borderRadius: '15px' }}>
               <CardHeader title="All Sites Completed" subheader="Cumilative progress" />
 
               <Line data={abc.dataLine} />
             </MDBContainer>
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <AppWebsiteVisits chartData={a} xaxisData={XaxisDataMobitel} />
