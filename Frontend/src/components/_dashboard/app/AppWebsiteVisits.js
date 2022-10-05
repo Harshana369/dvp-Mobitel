@@ -12,7 +12,7 @@ export default function AppWebsiteVisits({ chartData, xaxisData }) {
 
   const chack_type =
     CHART_DATA[0].type !== 'column'
-      ? ['gradient', 'gradient', 'gradient', 'gradient', 'gradient', 'gradient']
+      ? ['gradient', 'gradient', 'gradient', 'gradient', 'gradient', 'gradient', 'gradient']
       : ['solid', 'solid', 'solid', 'solid', 'solid', 'solid'];
 
   const chartOptions = merge(BaseOptionChart(), {
