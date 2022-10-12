@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import axios from 'axios';
 import CryptoJS from 'react-native-crypto-js';
 import { useNavigate } from 'react-router-dom';
@@ -18,14 +20,22 @@ import {
   gridSortedRowIdsSelector,
   gridVisibleSortedRowIdsSelector,
   useGridApiContext,
-  useGridApiRef
+  useGridApiRef,
+  SortGridMenuItems,
+  GridColumnMenu,
+  GridFilterMenuItem,
+  GridColumnHeaderItem
 } from '@mui/x-data-grid';
 import { createSvgIcon } from '@mui/material/utils';
-import { Box, Stack } from '@mui/material';
+import { Box, MenuItem, Stack } from '@mui/material';
 import clsx from 'clsx';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import { styled } from '@mui/material/styles';
+import { GridColumnMenuContainer } from '@mui/x-data-grid-pro';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
 /* eslint-disable camelcase */
 
 const getRowsFromCurrentPage = ({ apiRef }) => gridPaginatedVisibleSortedGridRowIdsSelector(apiRef);
@@ -49,6 +59,42 @@ const useDummyMutation = () =>
       ),
     []
   );
+
+function CustomColumnMenuComponent(props) {
+  const [hidecol, setHidecol] = useState([]);
+  const { hideMenu, currentColumn } = props;
+
+  if (currentColumn.field) {
+    const { hideMenu, currentColumn } = props;
+
+    const golbleHide = (event) => {
+      const temp = [];
+      temp.push(currentColumn.field);
+      setHidecol(temp);
+      console.log(hidecol);
+    };
+    return (
+      // <GridColumnMenuContainer>
+      <>
+        <SortGridMenuItems onClick={hideMenu} column={currentColumn} />
+        <GridFilterMenuItem onClick={hideMenu} column={currentColumn} />
+        <MenuItem onClick={golbleHide}>Hide</MenuItem>
+      </>
+
+      //   {/* <MenuItem onClick={handleClose(currentColumn.field)}>Hide</MenuItem> */}
+      // </GridColumnMenuContainer>
+
+      // <GridColumnMenu hideMenu={hideMenu} currentColumn={currentColumn} />
+    );
+  }
+}
+
+CustomColumnMenuComponent.propTypes = {
+  currentColumn: PropTypes.object.isRequired,
+  hideMenu: PropTypes.func.isRequired
+};
+
+export { CustomColumnMenuComponent };
 
 export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
   const navigate = useNavigate();
@@ -89,8 +135,6 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
   const [Implementation_Status, setImplementation_Status] = useState('');
   const [Acceptance_Status, setAcceptance_Status] = useState('');
   const [Payment_Status, setPayment_Status] = useState('');
-
-  console.log(Site_Statuses);
 
   useEffect(() => {
     // get current user name from the local storage
@@ -3592,6 +3636,12 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
     [editRowData]
   );
 
+  const [columnVisibilityModel, setColumnVisibilityModel] = React.useState({
+    Planning_ID: false,
+    Implementation_By: false,
+    Project: false
+  });
+
   return (
     <Box
       sx={{
@@ -3613,7 +3663,7 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
         apiRef={apiRef}
         rows={state}
         columns={Columns}
-        components={{ Toolbar: CustomToolbar }}
+        components={{ ColumnMenu: CustomColumnMenuComponent, Toolbar: CustomToolbar }}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowsPerPageOptions={[5, 10, 20, 50, 100]}
@@ -3636,6 +3686,18 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
             color: 'secondary.main'
           }
         }}
+        // initialState={{
+        //   columns: {
+        //     columnVisibilityModel: {
+        //       // Hide columns status and traderName, the other columns will remain visible
+        //       Planning_ID: false,
+        //       Implementation_By: false,
+        //       Project: false
+        //     }
+        //   }
+        // }}
+        columnVisibilityModel={columnVisibilityModel}
+        onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
       />
       {!!snackbar && (
         <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={5000}>

@@ -1,3 +1,4 @@
+const { spawn } = require("child_process");
 require("dotenv").config({ path: "./config.env" });
 const path = require("path");
 const express = require("express");
@@ -138,3 +139,37 @@ process.on("unhandledRejection", (err, promise) => {
   console.log(`Logged Error: ${err.message}`);
   server.close(() => process.exit(1));
 });
+
+//----------------------------------------------------------------------
+// function backupMongoDB() {
+
+//   const child = spawn("mongoexport",[
+//     '--uri=',
+//     'mongodb+srv://harshana12:harshana1945@mproject.vkxxspb.mongodb.net/mproject',
+//     '--collection',
+//     'mobitelprojectsdatabases',
+//     '--type',
+//     'json',
+//     '--out',
+//     'out.json',
+
+//   ]);
+
+//   child.stdout.on('data', (data) => {
+//     console.log('stdout:\n', data);
+//   });
+//   child.stderr.on('data', (data) => {
+//     console.log('stderr:\n', Buffer.from(data).toString());
+//   });
+//   child.on('error', (error) => {
+//     console.log('error:\n', error);
+//   });
+//   child.on('exit', (code, signal) => {
+//     if (code) console.log('Process exit with code:', code);
+//     else if (signal) console.log('Process killed with signal:', signal);
+//     else console.log('Backup is successfull ');
+//   });
+
+// }
+
+//  backupMongoDB()

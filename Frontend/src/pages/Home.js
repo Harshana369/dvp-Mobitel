@@ -24,7 +24,7 @@ export default function Home() {
           justifyContent="flex-end"
           sx={{ mb: 2 }}
         />
-        <ProductList />
+        {/* <ProductList /> */}
       </Container>
     </Page>
   );
