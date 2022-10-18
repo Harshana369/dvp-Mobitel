@@ -11,8 +11,26 @@ import {
   HUAWEI_SCOPE_DATA_SUCCESS,
   HUAWEI_SCOPE_DATA_FAIL,
   HUAWEI_LAST_UPDATE_SUCCESS,
-  HUAWEI_LAST_UPDATE_FAIL
+  HUAWEI_LAST_UPDATE_FAIL,
+  HUAWEI_AREA_CHART_DATA_REQUEST,
+  HUAWEI_AREA_CHART_DATA_SUCCESS,
+  HUAWEI_DATABASE_REQUEST,
+  HUAWEI_SCOPE_DATA_REQUEST,
+  HUAWEI_LAST_UPDATE_REQUEST
 } from '../Constants/haweiConstants';
+
+export const huaweiDatabaseReducer = (state = { huaweiDatabaseData: [] }, action) => {
+  switch (action.type) {
+    case HUAWEI_DATABASE_REQUEST:
+      return { loading: true, huaweiDatabaseData: [] };
+    case HUAWEI_DATABASE_SUCCESS:
+      return { loading: false, huaweiDatabaseData: action.payload };
+    case HUAWEI_DATABASE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const huaweiFiltedNameReducer = (state = { huaweiFiltedNameData: [] }, action) => {
   switch (action.type) {
@@ -47,19 +65,6 @@ export const huaweiAreaChartReducer = (state = { huaweiAreaChartData: [] }, acti
     case HUAWEI_AREA_CHART_DATA_SUCCESS:
       return { loading: false, huaweiAreaChartData: action.payload };
     case HUAWEI_AREA_CHART_DATA_FAIL:
-      return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-export const huaweiDatabaseReducer = (state = { huaweiDatabaseData: [] }, action) => {
-  switch (action.type) {
-    case HUAWEI_DATABASE_REQUEST:
-      return { loading: true, huaweiDatabaseData: [] };
-    case HUAWEI_DATABASE_SUCCESS:
-      return { loading: false, huaweiDatabaseData: action.payload };
-    case HUAWEI_DATABASE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

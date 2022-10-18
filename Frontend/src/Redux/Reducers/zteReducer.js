@@ -13,8 +13,24 @@ import {
   ZTE_SCOPE_DATA_SUCCESS,
   ZTE_SCOPE_DATA_FAIL,
   ZTE_LAST_UPDATE_SUCCESS,
-  ZTE_LAST_UPDATE_FAIL
+  ZTE_LAST_UPDATE_FAIL,
+  ZTE_COLUMN_CHART_DATA_REQUEST,
+  ZTE_SCOPE_DATA_REQUEST,
+  ZTE_LAST_UPDATE_REQUEST
 } from '../Constants/zteconstants';
+
+export const zteDatabaseReducer = (state = { zteDatabaseData: [] }, action) => {
+  switch (action.type) {
+    case ZTE_DATABASE_REQUEST:
+      return { loading: true, zteDatabaseData: [] };
+    case ZTE_DATABASE_SUCCESS:
+      return { loading: false, zteDatabaseData: action.payload };
+    case ZTE_DATABASE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const zteFiltedNameReducer = (state = { zteFiltedNameData: [] }, action) => {
   switch (action.type) {
@@ -49,19 +65,6 @@ export const zteAreaChartReducer = (state = { zteAreaChartData: [] }, action) =>
     case ZTE_AREA_CHART_DATA_SUCCESS:
       return { loading: false, zteAreaChartData: action.payload };
     case ZTE_AREA_CHART_DATA_FAIL:
-      return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-export const zteDatabaseReducer = (state = { zteDatabaseData: [] }, action) => {
-  switch (action.type) {
-    case ZTE_DATABASE_REQUEST:
-      return { loading: true, zteDatabaseData: [] };
-    case ZTE_DATABASE_SUCCESS:
-      return { loading: false, zteDatabaseData: action.payload };
-    case ZTE_DATABASE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

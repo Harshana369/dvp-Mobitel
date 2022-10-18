@@ -1,5 +1,7 @@
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
+import { useSelector } from 'react-redux';
+
 // material
 import { useTheme, styled } from '@mui/material/styles';
 import { Card, CardHeader } from '@mui/material';
@@ -30,18 +32,17 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
-export default function AppCurrentVisits({
-  projectCompletionMobitel,
-  projectCompletionHuawei,
-  projectCompletionZTE
-}) {
+export default function AppCurrentVisits({ projectCompletionHuawei, projectCompletionZTE }) {
+  const mobitelDatabseDetails = useSelector((state) => state.mobitelDatabse);
+  const { loading, error, mobitelDatabaseData } = mobitelDatabseDetails;
+
   const theme = useTheme();
 
   const ProjComHuawei = projectCompletionHuawei;
   const ProjComZTE = projectCompletionZTE;
   const projectCompletionVendor = ProjComHuawei.map((a, i) => a + ProjComZTE[i]);
 
-  const ProjCom1 = projectCompletionMobitel;
+  const ProjCom1 = mobitelDatabaseData.ProjectCompletionForFrontEnd;
   const ProjCom2 = projectCompletionVendor;
   const ProjCom = ProjCom1.map((a, i) => a + ProjCom2[i]);
 

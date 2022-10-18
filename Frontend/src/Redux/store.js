@@ -9,14 +9,44 @@ import {
   mobitelOverviewReducer,
   mobitelScopeReducer
 } from './Reducers/mobitelReduce';
+import {
+  huaweiAreaChartReducer,
+  huaweiColumChartReducer,
+  huaweiDatabaseReducer,
+  huaweiFiltedNameReducer,
+  huaweiLastUpdateReducer,
+  huaweiScopeReducer
+} from './Reducers/huaweiReducer';
+import {
+  zteAreaChartReducer,
+  zteColumChartReducer,
+  zteDatabaseReducer,
+  zteFiltedNameReducer,
+  zteLastUpdateReducer,
+  zteScopeReducer
+} from './Reducers/zteReducer';
 
 const reducer = combineReducers({
+  mobitelDatabse: mobitelDatabseReducer,
   mobitelOverview: mobitelOverviewReducer,
   mobitelChartColumn: mobitelChartColumnReducer,
   mobitelChartArea: mobitelChartAreaReducer,
-  mobitelDatabse: mobitelDatabseReducer,
   mobitelScope: mobitelScopeReducer,
-  mobitelLastUpdate: mobitelLastUpdateReducer
+  mobitelLastUpdate: mobitelLastUpdateReducer,
+  //---------------------
+  huaweiDatabase: huaweiDatabaseReducer,
+  huaweiFiltedName: huaweiFiltedNameReducer,
+  huaweiColumChart: huaweiColumChartReducer,
+  huaweiAreaChart: huaweiAreaChartReducer,
+  huaweiScope: huaweiScopeReducer,
+  huaweiLastUpdate: huaweiLastUpdateReducer,
+  //---------------------
+  zteDatabasezteDatabase: zteDatabaseReducer,
+  zteFiltedName: zteFiltedNameReducer,
+  zteColumChart: zteColumChartReducer,
+  zteAreaChart: zteAreaChartReducer,
+  zteScope: zteScopeReducer,
+  zteLastUpdate: zteLastUpdateReducer
 });
 
 const initialState = {};

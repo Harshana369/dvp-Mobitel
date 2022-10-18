@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 // material
@@ -13,14 +15,14 @@ import { BaseOptionChart5 } from '../../charts';
 // ---------------------------  Daily work progress graph in dashboard----------------------------
 
 export default function AppWebsiteVisits1({
-  xAxisDaysLabel,
-  weeklyProgressDataMobitel,
   weeklyProgressDataHuawei,
   weeklyProgressDataZTE,
-  completedSitesMobitel,
   completedSitesHuawei,
   completedSitesZTE
 }) {
+  const mobitelDatabseDetails = useSelector((state) => state.mobitelDatabse);
+  const { loading, error, mobitelDatabaseData } = mobitelDatabseDetails;
+
   const [alert1, setAlert1] = useState(false);
   const [alertContent1, setAlertContent1] = useState('');
   const [open1, setOpen1] = React.useState(false);
@@ -35,11 +37,11 @@ export default function AppWebsiteVisits1({
 
   const completedSitesVendor = completedSitesHuawei.map((a, i) => a.concat(completedSitesZTE[i]));
 
-  const weeklyProgress1 = weeklyProgressDataMobitel[0].data;
+  const weeklyProgress1 = mobitelDatabaseData.weeklyProgressDataForFrontEnd[0].data;
   const weeklyProgress2 = weeklyProgressDataVendor;
   const weeklyProgress = weeklyProgress1.map((a, i) => a + weeklyProgress2[i]);
 
-  const weeklyTarget1 = weeklyProgressDataMobitel[1].data;
+  const weeklyTarget1 = mobitelDatabaseData.weeklyProgressDataForFrontEnd[1].data;
   const weeklyTarget2 = weeklyTargetDataVendor;
   const weeklyTarget = weeklyTarget1.map((a, i) => a + weeklyTarget2[i]);
 
@@ -51,9 +53,11 @@ export default function AppWebsiteVisits1({
 
   // --------- Assigning Data To Graph ----------------------------------
 
-  const xAxisData = xAxisDaysLabel;
+  const xAxisData = mobitelDatabaseData.SevenDaysOfWeek;
   const CHART_DATA = weeklyProgressData;
-  const CompletedSites = completedSitesMobitel.map((a, i) => a.concat(completedSitesVendor[i]));
+  const CompletedSites = mobitelDatabaseData.WeeklyProgressOnAirSitesData.map((a, i) =>
+    a.concat(completedSitesVendor[i])
+  );
 
   const chartOptions = merge(BaseOptionChart5(), {
     stroke: { width: [3, 1] },

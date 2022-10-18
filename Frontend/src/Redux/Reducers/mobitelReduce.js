@@ -19,6 +19,19 @@ import {
   MOBITEL_LAST_UPDATE_FAIL
 } from '../Constants/mobitelConstants';
 
+export const mobitelDatabseReducer = (state = { mobitelDatabaseData: [] }, action) => {
+  switch (action.type) {
+    case MOBITEL_DATABASE_REQUEST:
+      return { loading: true, mobitelDatabaseData: [] };
+    case MOBITEL_DATABASE_SUCCESS:
+      return { loading: false, mobitelDatabaseData: action.payload };
+    case MOBITEL_DATABASE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const mobitelOverviewReducer = (state = { mobitelOverviewData: [] }, action) => {
   switch (action.type) {
     case MOBITEL_OVERVIEW_REQUEST:
@@ -52,19 +65,6 @@ export const mobitelChartAreaReducer = (state = { mobitelChartAreaData: [] }, ac
     case MOBITEL_CHART_AREA_DATA_SUCCESS:
       return { loading: false, mobitelChartAreaData: action.payload };
     case MOBITEL_CHART_AREA_DATA_FAIL:
-      return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-export const mobitelDatabseReducer = (state = { mobitelDatabaseData: [] }, action) => {
-  switch (action.type) {
-    case MOBITEL_DATABASE_REQUEST:
-      return { loading: true, mobitelDatabaseData: [] };
-    case MOBITEL_DATABASE_SUCCESS:
-      return { loading: false, mobitelDatabaseData: action.payload };
-    case MOBITEL_DATABASE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
