@@ -62,113 +62,496 @@ import {
   fetchZTEProjectsLastUpdates,
   fetchZTEScopeData
 } from '../Redux/Action/zteAction';
+import Loading from '../components/Loading';
 /* eslint-disable */
 
 export default function DashboardApp() {
+  const navigate = useNavigate();
+  const axiosInstance = axios.create({ baseURL: process.env.REACT_APP_API_URL });
+
+  const [MobitelprojectNamesArray, setMobitelprojectNamesArray] = useState([]);
+  const [VendorprojectsHuaweiNamesArray, setVendorprojectsHuaweiNamesArray] = useState([]);
+  const [VendorprojectsZTENamesArray, setVendorprojectsZTENamesArray] = useState([]);
+
   const [MobitelDropdownValue, setMobitelDropdownValue] = useState('All Mobitel Projects');
   const [VendorHuaweiDropdownValue, setVendorHuaweiDropdownValue] = useState('All Huawei Projects');
   const [VendorZTEDropdownValue, setVendorZTEDropdownValue] = useState('All ZTE Projects');
 
+  const [ChartDataForColumnGraphMobitel, setChartDatForColumnGraphMobitel] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+
+  const [ChartDataForAreaGraphMobitel, setChartDatForAreaGraphMobitel] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+
+  const [ChartDataForColumnGraphHuawei, setChartDatForColumnGraphHuawei] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+
+  const [ChartDataForAreaGraphHuawei, setChartDatForAreaGraphHuawei] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+
+  const [ChartDataForColumnGraphZTE, setChartDatForColumnGraphZTE] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+
+  const [ChartDataForAreaGraphZTE, setChartDatForAreaGraphZTE] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+
+  const [ScopeDataMobitel, setScopeDataMobitel] = useState([]);
+  const [HandoverDataMobitel, setHandoverDataMobitel] = useState([]);
+  const [PATPassDataMobitel, sePATPassDataMobitel] = useState();
+  const [OnAirDataMobitel, setOnAirDataMobitel] = useState();
+  const [HoldSitesDataMobitel, setHoldSitesDataMobitel] = useState();
+  const [XaxisDataMobitel, setXaxisDataMobitel] = useState([]);
+
+  const [XaxisDataMobitelAreaGraph, setXaxisDataMobitelAreaGraph] = useState([]);
+
+  const [ProjectCompletionMobitel, setProjectCompletionMobitel] = useState([]);
+  const [XAxisDaysLabelMobitel, setxAxisDaysLabelMobitel] = useState([]);
+  const [WeeklyProgressDataMobitel, setweeklyProgressDataMobitel] = useState([
+    { name: 'Completed', type: 'column', data: [0, 0, 0, 0, 0, 0, 0] },
+    { name: 'Targeted', type: 'column', data: [0, 0, 0, 0, 0, 0, 0] }
+  ]);
+  const [CompletedSitesMobitel, setcompletedSitesMobitel] = useState([]);
+
+  const [ScopeDataHuawei, setScopeDataHuawei] = useState([]);
+  const [HandoverDataHuawei, setHandoverDataHuawei] = useState([]);
+  const [PATPassDataHuawei, sePATPassDataHuawei] = useState();
+  const [OnAirDataHuawei, setOnAirDataHuawei] = useState();
+  const [HoldSitesDataHuawei, setHoldSitesDataHuawei] = useState();
+  const [ProjectCompletionHuawei, setProjectCompletionHuawei] = useState([]);
+  const [WeeklyProgressDataHuawei, setweeklyProgressDataHuawei] = useState([
+    { name: 'Completed', type: 'column', data: [0, 0, 0, 0, 0, 0, 0] },
+    { name: 'Targeted', type: 'column', data: [0, 0, 0, 0, 0, 0, 0] }
+  ]);
+  const [CompletedSitesHuawei, setcompletedSitesHuawei] = useState([]);
+
+  const [ScopeDataZTE, setScopeDataZTE] = useState([]);
+  const [HandoverDataZTE, setHandoverDataZTE] = useState([]);
+  const [PATPassDataZTE, sePATPassDataZTE] = useState();
+  const [OnAirDataZTE, setOnAirDataZTE] = useState();
+  const [HoldSitesDataZTE, setHoldSitesDataZTE] = useState();
+  const [ProjectCompletionZTE, setProjectCompletionZTE] = useState([]);
+  const [WeeklyProgressDataZTE, setweeklyProgressDataZTE] = useState([
+    { name: 'Completed', type: 'column', data: [0, 0, 0, 0, 0, 0, 0] },
+    { name: 'Targeted', type: 'column', data: [0, 0, 0, 0, 0, 0, 0] }
+  ]);
+  const [CompletedSitesZTE, setcompletedSitesZTE] = useState([]);
+
+  const [MobitelLastUpdates, setMobitelLastUpdates] = useState([]);
+  const [HuaweiLastUpdates, setHuaweiLastUpdates] = useState([]);
+  const [ZTELastUpdates, setZTELastUpdates] = useState([]);
   const [VendorUpdatesIsShown, setVendorUpdatesIsShown] = useState(false);
   const [MobitelUpdatesIsShown, setMobitelUpdatesIsShown] = useState(true);
+
   //---------------------------
 
   const mobitelDatabseDetails = useSelector((state) => state.mobitelDatabse);
   const { mobitelDatabseLoading, mobitelDatabaseData } = mobitelDatabseDetails;
 
-  const mobitelOverviewDetails = useSelector((state) => state.mobitelOverview);
-  const { mobitelOverviewLoading, mobitelOverviewData } = mobitelOverviewDetails;
-
-  const mobitelColumnDetails = useSelector((state) => state.mobitelChartColumn);
-  const { mobitelChartColumnLoading, mobitelChartColumData } = mobitelColumnDetails;
-
-  const mobitelAreaDetails = useSelector((state) => state.mobitelChartArea);
-  const { mobitelChartAreaLoading, mobitelChartAreaData } = mobitelAreaDetails;
-
   const mobitelScopDetails = useSelector((state) => state.mobitelScope);
   const { mobitelScopeLoading, mobitelScopeData } = mobitelScopDetails;
-
-  const mobitelLastUpdateDetails = useSelector((state) => state.mobitelLastUpdate);
-  const { mobitelLastUpdateLoading, mobitelLastUpdateData } = mobitelLastUpdateDetails;
 
   //------------------------
 
   const huaweiDatabseDetails = useSelector((state) => state.huaweiDatabase);
   const { huaweiDatabaseLoading, huaweiDatabaseData } = huaweiDatabseDetails;
 
-  const huaweiFiltedNameDetails = useSelector((state) => state.huaweiFiltedName);
-  const { huaweiFiltedNameLoading, huaweiFiltedNameData } = huaweiFiltedNameDetails;
-
-  const huaweiColumChartDetails = useSelector((state) => state.huaweiColumChart);
-  const { huaweiColumChartLoading, huaweiColumChartData } = huaweiColumChartDetails;
-
-  const huaweiAreaChartDetails = useSelector((state) => state.huaweiAreaChart);
-  const { huaweiAreaChartLoading, huaweiAreaChartData } = huaweiAreaChartDetails;
-
   const huaweiScopeDetails = useSelector((state) => state.huaweiScope);
   const { huaweiScopeLoading, huaweiScopeData } = huaweiScopeDetails;
-
-  const huaweiLastUpdateDetails = useSelector((state) => state.huaweiLastUpdate);
-  const { huaweiLastUpdateLoading, huaweiLastUpdateData } = huaweiLastUpdateDetails;
-
   //--------------------------
 
   const zteDatabseDetails = useSelector((state) => state.zteDatabase);
   const { zteDatabaseLoading, zteDatabaseData } = zteDatabseDetails;
 
-  const zteFiltedNameDetails = useSelector((state) => state.zteFiltedName);
-  const { zteFiltedNameLoading, zteFiltedNameData } = zteFiltedNameDetails;
-
-  const zteColumChartDetails = useSelector((state) => state.zteColumChart);
-  const { zteColumChartLoading, zteColumChartData } = zteColumChartDetails;
-
-  const zteAreaChartDetails = useSelector((state) => state.zteAreaChart);
-  const { zteAreaChartLoading, zteAreaChartData } = zteAreaChartDetails;
-
   const zteScopeDetails = useSelector((state) => state.zteScope);
   const { zteScopeLoading, zteScopeData } = zteScopeDetails;
 
-  const zteLastUpdateDetails = useSelector((state) => state.zteLastUpdate);
-  const { zteLastUpdateLoading, error, zteLastUpdateData } = zteLastUpdateDetails;
   const dispatch = useDispatch();
+
+  const fetchMobitelProjectNames = async () => {
+    const req = await axiosInstance
+      .get('/mobitelProjectsOverviewTable/ProjectsArray')
+      .then((res) => {
+        setMobitelprojectNamesArray(res.data.mobitelProjectsNamesArrayForInsights);
+      });
+  };
+
+  const fetchHuaweiVendorProjectNames = async () => {
+    const req = await axiosInstance
+      .get('/filteredVendorProjectsNamesArray', {
+        params: { Vendor: 'Huawei' }
+      })
+      .then((res) => {
+        setVendorprojectsHuaweiNamesArray(res.data.filteredProjectNamesArray);
+      });
+  };
+
+  const fetchZTEVendorProjectNames = async () => {
+    const req = await axiosInstance
+      .get('/filteredVendorProjectsNamesArray', {
+        params: { Vendor: 'ZTE' }
+      })
+      .then((res) => {
+        setVendorprojectsZTENamesArray(res.data.filteredZTEProjectNamesArray);
+      });
+  };
+
+  const MobitelprojectNames = MobitelprojectNamesArray.concat({
+    value: '',
+    label: 'Vendor Projects Only'
+  });
+  const VendorprojectNames = VendorprojectsHuaweiNamesArray.concat({
+    value: '',
+    label: 'Mobitel Projects Only'
+  });
+
+  const VendorprojectsZTENames = VendorprojectsZTENamesArray.concat({
+    value: '',
+    label: 'Mobitel Projects Only'
+  });
 
   useEffect(() => {
     dispatch(fetchMobitelData(MobitelDropdownValue));
-    dispatch(fetchMobitelProjectNames());
-    dispatch(fetchMobitelColumnGraphData(MobitelDropdownValue));
-    dispatch(fetchMobitelAreaGraphData(MobitelDropdownValue));
     dispatch(fetchMobitelScopeData(MobitelDropdownValue));
-    dispatch(fetchMobitelLastUpdatesData(MobitelDropdownValue));
     //--------------------
     dispatch(fetchHuaweiData(VendorHuaweiDropdownValue));
-    dispatch(fetchHuaweiProjectNames(VendorHuaweiDropdownValue));
-    dispatch(fetchHuaweiColumnGraphData(VendorHuaweiDropdownValue));
-    dispatch(fetchHuaweiAreaGraphData(VendorHuaweiDropdownValue));
     dispatch(fetchHuaweiScopeData(VendorHuaweiDropdownValue));
-    dispatch(fetchHuaweiProjectsLastUpdates(VendorHuaweiDropdownValue));
     //----------------------
     dispatch(fetchZTEData(VendorZTEDropdownValue));
-    dispatch(fetchZTEProjectNames(VendorZTEDropdownValue));
-    dispatch(fetchZTEColumnGraphData(VendorZTEDropdownValue));
-    dispatch(fetchZTEAreaGraphData(VendorZTEDropdownValue));
     dispatch(fetchZTEScopeData(VendorZTEDropdownValue));
-    dispatch(fetchZTEProjectsLastUpdates(VendorZTEDropdownValue));
+    //-----------------------
+    fetchMobitelDatabase();
+    fetchMobitelScope();
+    fetchZTEVendorData();
+    fetchHuaweiVendorData();
+    fetchHuaweiVendorScope();
+    fetchMobitelColumnGraphData();
+    fetchHuaweiVendorColumnGraphData();
+    fetchMobitelProjectsLastUpdates();
+    fetchHuaweiVendorProjectsLastUpdates();
+    fetchMobitelProjectNames();
+    fetchHuaweiVendorProjectNames();
+    fetchZTEVendorProjectNames();
+    fetchZTEVendorScope();
+    fetchZTEVendorColumnGraphData();
+    fetchZTEVendorProjectsLastUpdates();
+    fetchHuaweiVendorProjectNames();
+    fetchZTEVendorProjectNames();
+    fetchZTEVendorAreaGraphData();
+    fetchHuaweiVendorAreaGraphData();
+    fetchMobitelAreaGraphData();
   }, [dispatch]);
 
-  // const MobitelprojectNames = mobitelOverviewData.mobitelProjectsNamesArrayForInsights.concat({
-  //   value: '',
-  //   label: 'Vendor Projects Only'
-  // });
+  useEffect(() => {
+    dispatch(fetchMobitelData(MobitelDropdownValue));
+    dispatch(fetchMobitelScopeData(MobitelDropdownValue));
+    //--------------------
+    dispatch(fetchHuaweiData(VendorHuaweiDropdownValue));
+    dispatch(fetchHuaweiScopeData(VendorHuaweiDropdownValue));
+    //----------------------
+    dispatch(fetchZTEData(VendorZTEDropdownValue));
+    dispatch(fetchZTEScopeData(VendorZTEDropdownValue));
+    //-----------------------
+    fetchMobitelDatabase();
+    fetchMobitelScope();
+    fetchZTEVendorData();
+    fetchHuaweiVendorData();
+    fetchHuaweiVendorScope();
+    fetchMobitelColumnGraphData();
+    fetchHuaweiVendorColumnGraphData();
+    fetchMobitelProjectsLastUpdates();
+    fetchHuaweiVendorProjectsLastUpdates();
+    fetchMobitelProjectNames();
+    fetchHuaweiVendorProjectNames();
+    fetchZTEVendorProjectNames();
+    fetchZTEVendorScope();
+    fetchZTEVendorColumnGraphData();
+    fetchZTEVendorProjectsLastUpdates();
+    fetchHuaweiVendorProjectNames();
+    fetchZTEVendorProjectNames();
+    fetchZTEVendorAreaGraphData();
+    fetchHuaweiVendorAreaGraphData();
+    fetchMobitelAreaGraphData();
+  }, [MobitelDropdownValue, dispatch]);
 
-  // const VendorprojectNames = huaweiFiltedNameData.filteredProjectNamesArray.concat({
-  //   value: '',
-  //   label: 'Mobitel Projects Only'
-  // });
+  useEffect(() => {
+    dispatch(fetchMobitelData(MobitelDropdownValue));
+    dispatch(fetchMobitelScopeData(MobitelDropdownValue));
+    //--------------------
+    dispatch(fetchHuaweiData(VendorHuaweiDropdownValue));
+    dispatch(fetchHuaweiScopeData(VendorHuaweiDropdownValue));
+    //----------------------
+    dispatch(fetchZTEData(VendorZTEDropdownValue));
+    dispatch(fetchZTEScopeData(VendorZTEDropdownValue));
+    //-----------------------
+    fetchMobitelDatabase();
+    fetchMobitelScope();
+    fetchZTEVendorData();
+    fetchHuaweiVendorData();
+    fetchHuaweiVendorScope();
+    fetchMobitelColumnGraphData();
+    fetchHuaweiVendorColumnGraphData();
+    fetchMobitelProjectsLastUpdates();
+    fetchHuaweiVendorProjectsLastUpdates();
+    fetchMobitelProjectNames();
+    fetchHuaweiVendorProjectNames();
+    fetchZTEVendorProjectNames();
+    fetchZTEVendorScope();
+    fetchZTEVendorColumnGraphData();
+    fetchZTEVendorProjectsLastUpdates();
+    fetchHuaweiVendorProjectNames();
+    fetchZTEVendorProjectNames();
+    fetchZTEVendorAreaGraphData();
+    fetchHuaweiVendorAreaGraphData();
+    fetchMobitelAreaGraphData();
+  }, [VendorHuaweiDropdownValue, dispatch]);
 
-  // const VendorprojectsZTENames = zteFiltedNameData.filteredZTEProjectNamesArray.concat({
-  //   value: '',
-  //   label: 'Mobitel Projects Only'
-  // });
+  useEffect(() => {
+    dispatch(fetchMobitelData(MobitelDropdownValue));
+    dispatch(fetchMobitelScopeData(MobitelDropdownValue));
+    //--------------------
+    dispatch(fetchHuaweiData(VendorHuaweiDropdownValue));
+    dispatch(fetchHuaweiScopeData(VendorHuaweiDropdownValue));
+    //----------------------
+    dispatch(fetchZTEData(VendorZTEDropdownValue));
+    dispatch(fetchZTEScopeData(VendorZTEDropdownValue));
+    //-----------------------
+    fetchMobitelDatabase();
+    fetchMobitelScope();
+    fetchZTEVendorData();
+    fetchHuaweiVendorData();
+    fetchHuaweiVendorScope();
+    fetchMobitelColumnGraphData();
+    fetchHuaweiVendorColumnGraphData();
+    fetchMobitelProjectsLastUpdates();
+    fetchHuaweiVendorProjectsLastUpdates();
+    fetchMobitelProjectNames();
+    fetchHuaweiVendorProjectNames();
+    fetchZTEVendorProjectNames();
+    fetchZTEVendorScope();
+    fetchZTEVendorColumnGraphData();
+    fetchZTEVendorProjectsLastUpdates();
+    fetchHuaweiVendorProjectNames();
+    fetchZTEVendorProjectNames();
+    fetchZTEVendorAreaGraphData();
+    fetchHuaweiVendorAreaGraphData();
+    fetchMobitelAreaGraphData();
+  }, [VendorZTEDropdownValue, dispatch]);
+
+  const fetchMobitelColumnGraphData = () => {
+    axiosInstance
+      .get('/mobitelProjectsDatabasesChartDataColumnChartData', {
+        params: { Project: MobitelDropdownValue }
+      })
+      .then((res) => {
+        setChartDatForColumnGraphMobitel(res.data.chartDataForFrontEnd);
+        setXaxisDataMobitel(res.data.XaxisDataForTheGraphs);
+      });
+  };
+
+  // ---------AreaGraph--------------
+
+  const fetchMobitelAreaGraphData = () => {
+    axiosInstance
+      .get('/mobitelProjectsDatabasesChartDataAreaChartData', {
+        params: { Project: MobitelDropdownValue }
+      })
+      .then((res) => {
+        setChartDatForAreaGraphMobitel(res.data.chartDataForFrontEnd);
+        setXaxisDataMobitelAreaGraph(res.data.XaxisDataForTheGraphs);
+      });
+  };
+
+  const fetchMobitelDatabase = () => {
+    axiosInstance
+      .get('/mobitelProjectsDatabases', {
+        params: { Project: MobitelDropdownValue }
+      })
+      .then((res) => {
+        setHandoverDataMobitel(res.data.HandOverDataToSquares);
+        sePATPassDataMobitel(res.data.PatDataForFrontEnd);
+        setHoldSitesDataMobitel(res.data.HoldSitesDataforSquares);
+        setOnAirDataMobitel(res.data.OnAirDataForFrontEnd);
+        setProjectCompletionMobitel(res.data.ProjectCompletionForFrontEnd);
+        setxAxisDaysLabelMobitel(res.data.SevenDaysOfWeek);
+        setweeklyProgressDataMobitel(res.data.weeklyProgressDataForFrontEnd);
+        setcompletedSitesMobitel(res.data.WeeklyProgressOnAirSitesData);
+      });
+  };
+
+  const fetchMobitelScope = () => {
+    axiosInstance
+      .get('/mobitelProjectsOverviewTable', {
+        params: { ProjectName: MobitelDropdownValue }
+      })
+      .then((res) => {
+        setScopeDataMobitel(res.data.scopeDataToTheFrontEnd);
+      });
+  };
+
+  const fetchHuaweiVendorColumnGraphData = () => {
+    axiosInstance
+      .get('/vendorProjectsDatabasesChartDataColumnChartData', {
+        params: { Project: VendorHuaweiDropdownValue }
+      })
+      .then((res) => {
+        setChartDatForColumnGraphHuawei(res.data.chartDataForFrontEnd);
+      });
+  };
+
+  // -------------Area Graph----------
+
+  const fetchHuaweiVendorAreaGraphData = () => {
+    axiosInstance
+      .get('/vendorProjectsDatabasesChartDataAreaChartData', {
+        params: { Project: VendorHuaweiDropdownValue }
+      })
+      .then((res) => {
+        setChartDatForAreaGraphHuawei(res.data.chartDataForFrontEnd);
+      });
+  };
+
+  const fetchZTEVendorColumnGraphData = () => {
+    axiosInstance
+      .get('/vendorProjectsDatabasesChartDataColumnChartData', {
+        params: { Project: VendorZTEDropdownValue }
+      })
+      .then((res) => {
+        setChartDatForColumnGraphZTE(res.data.chartDataForFrontEnd);
+      });
+  };
+
+  // -----------Area Graph----------
+
+  const fetchZTEVendorAreaGraphData = () => {
+    axiosInstance
+      .get('/vendorProjectsDatabasesChartDataAreaChartData', {
+        params: { Project: VendorZTEDropdownValue }
+      })
+      .then((res) => {
+        setChartDatForAreaGraphZTE(res.data.chartDataForFrontEnd);
+      });
+  };
+
+  const fetchHuaweiVendorData = () => {
+    axiosInstance
+      .get('/vendorProjectsDatabases', {
+        params: { Project: VendorHuaweiDropdownValue }
+      })
+      .then((res) => {
+        setHandoverDataHuawei(res.data.HandOverDataToSquares);
+        sePATPassDataHuawei(res.data.PatDataForFrontEnd);
+        setHoldSitesDataHuawei(res.data.HoldSitesDataforSquares);
+        setOnAirDataHuawei(res.data.OnAirDataForFrontEnd);
+        setProjectCompletionHuawei(res.data.ProjectCompletionForFrontEnd);
+        setweeklyProgressDataHuawei(res.data.weeklyProgressDataForFrontEnd);
+        setcompletedSitesHuawei(res.data.WeeklyProgressOnAirSitesData);
+      });
+  };
+
+  const fetchZTEVendorData = () => {
+    axiosInstance
+      .get('/vendorProjectsDatabases', {
+        params: { Project: VendorZTEDropdownValue }
+      })
+      .then((res) => {
+        setHandoverDataZTE(res.data.HandOverDataToSquares);
+        sePATPassDataZTE(res.data.PatDataForFrontEnd);
+        setHoldSitesDataZTE(res.data.HoldSitesDataforSquares);
+        setOnAirDataZTE(res.data.OnAirDataForFrontEnd);
+        setProjectCompletionZTE(res.data.ProjectCompletionForFrontEnd);
+        setweeklyProgressDataZTE(res.data.weeklyProgressDataForFrontEnd);
+        setcompletedSitesZTE(res.data.WeeklyProgressOnAirSitesData);
+      });
+  };
+
+  const fetchHuaweiVendorScope = () => {
+    axiosInstance
+      .get('/vendorProjectsOverviewTable', {
+        params: { ProjectName: VendorHuaweiDropdownValue }
+      })
+      .then((res) => {
+        setScopeDataHuawei(res.data.scopeDataToTheFrontEnd);
+      });
+  };
+
+  const fetchZTEVendorScope = () => {
+    axiosInstance
+      .get('/vendorProjectsOverviewTable', {
+        params: { ProjectName: VendorZTEDropdownValue }
+      })
+      .then((res) => {
+        setScopeDataZTE(res.data.scopeDataToTheFrontEnd);
+      });
+  };
+
+  const fetchMobitelProjectsLastUpdates = () => {
+    axiosInstance
+      .get('/mobitelProjectsLastUpdates', {
+        params: { Project: MobitelDropdownValue }
+      })
+      .then((res) => {
+        setMobitelLastUpdates(res.data.existingPosts);
+      });
+  };
+
+  const fetchHuaweiVendorProjectsLastUpdates = () => {
+    axiosInstance
+      .get('/vendorProjectsLastUpdates', {
+        params: { Project: VendorHuaweiDropdownValue }
+      })
+      .then((res) => {
+        setHuaweiLastUpdates(res.data.existingPosts);
+      });
+  };
+
+  const fetchZTEVendorProjectsLastUpdates = () => {
+    axiosInstance
+      .get('/vendorProjectsLastUpdates', {
+        params: { Project: VendorZTEDropdownValue }
+      })
+      .then((res) => {
+        setZTELastUpdates(res.data.existingPosts);
+      });
+  };
 
   const handleMobitelDropdownValue = (event) => {
     setMobitelDropdownValue(event.target.value);
@@ -208,6 +591,7 @@ export default function DashboardApp() {
   const ScopeData = mobitelScopeData.scopeDataToTheFrontEnd + ScopeDataVendor;
   const HandoverData =
     parseInt(mobitelDatabaseData.HandOverDataToSquares, 10) + parseInt(HandoverDataVendor, 10);
+
   const PATPassData =
     parseInt(mobitelDatabaseData.PatDataForFrontEnd, 10) + parseInt(PATPassDataVendor, 10);
   const OnAirData = mobitelDatabaseData.OnAirDataForFrontEnd + OnAirDataVendor;
@@ -215,42 +599,30 @@ export default function DashboardApp() {
 
   // ----------------- Sum of two vendors Chart Data For Column Graph --------------------
 
-  const AllvendorOnAir = 0;
-  const AllvendorPAT = 0;
-  const AllvendorSAR = 0;
-  const AllvendorCom = 0;
-  const AllvendorIns = 0;
-  const AllvendorMob = 0;
-
-  if (huaweiColumChartLoading || zteColumChartLoading) {
-  } else {
-    const onAirHuawei = 0;
-    const onAirZTE = 0;
-    onAirHuawei = huaweiColumChartData.chartDataForFrontEnd[0];
-    onAirZTE = zteColumChartData.chartDataForFrontEnd[0];
-    AllvendorOnAir = onAirHuawei.map((a, i) => a + onAirZTE[i]);
-    // ----------------------------------------------
-    const PATHuawei = huaweiColumChartData.chartDataForFrontEnd[1];
-    const PATZTE = zteColumChartData.chartDataForFrontEnd[1];
-    AllvendorPAT = PATHuawei.map((a, i) => a + PATZTE[i]);
-    // --------------------------------------------
-    const SARHuawei = huaweiColumChartData.chartDataForFrontEnd[2];
-    const SARZTE = zteColumChartData.chartDataForFrontEnd[2];
-    AllvendorSAR = SARHuawei.map((a, i) => a + SARZTE[i]);
-    // --------------------------------------------
-    const ComHuawei = huaweiColumChartData.chartDataForFrontEnd[3];
-    const ComZTE = zteColumChartData.chartDataForFrontEnd[3];
-    AllvendorCom = ComHuawei.map((a, i) => a + ComZTE[i]);
-    // --------------------------------------------
-    const InsHuawei = huaweiColumChartData.chartDataForFrontEnd[4];
-    const InsZTE = zteColumChartData.chartDataForFrontEnd[4];
-    AllvendorIns = InsHuawei.map((a, i) => a + InsZTE[i]);
-    // --------------------------------------------
-    const MobHuawei = huaweiColumChartData.chartDataForFrontEnd[5];
-    const MobZTE = zteColumChartData.chartDataForFrontEnd[5];
-    AllvendorMob = MobHuawei.map((a, i) => a + MobZTE[i]);
-    // ----------------------------------------------
-  }
+  const onAirHuawei = ChartDataForColumnGraphHuawei[0];
+  const onAirZTE = ChartDataForColumnGraphZTE[0];
+  const AllvendorOnAir = onAirHuawei.map((a, i) => a + onAirZTE[i]);
+  // ----------------------------------------------
+  const PATHuawei = ChartDataForColumnGraphHuawei[1];
+  const PATZTE = ChartDataForColumnGraphZTE[1];
+  const AllvendorPAT = PATHuawei.map((a, i) => a + PATZTE[i]);
+  // --------------------------------------------
+  const SARHuawei = ChartDataForColumnGraphHuawei[2];
+  const SARZTE = ChartDataForColumnGraphZTE[2];
+  const AllvendorSAR = SARHuawei.map((a, i) => a + SARZTE[i]);
+  // --------------------------------------------
+  const ComHuawei = ChartDataForColumnGraphHuawei[3];
+  const ComZTE = ChartDataForColumnGraphZTE[3];
+  const AllvendorCom = ComHuawei.map((a, i) => a + ComZTE[i]);
+  // --------------------------------------------
+  const InsHuawei = ChartDataForColumnGraphHuawei[4];
+  const InsZTE = ChartDataForColumnGraphZTE[4];
+  const AllvendorIns = InsHuawei.map((a, i) => a + InsZTE[i]);
+  // --------------------------------------------
+  const MobHuawei = ChartDataForColumnGraphHuawei[5];
+  const MobZTE = ChartDataForColumnGraphZTE[5];
+  const AllvendorMob = MobHuawei.map((a, i) => a + MobZTE[i]);
+  // ----------------------------------------------
 
   const ChartDataForColumnGraphVendor = [
     AllvendorOnAir,
@@ -262,39 +634,31 @@ export default function DashboardApp() {
   ];
 
   // ----------------- ChartDataForColumnGraph ---------------------------------------------
-  const onAir = 0;
-  const PAT = 0;
-  const SAR = 0;
-  const Com = 0;
-  const Ins = 0;
-  const Mob = 0;
 
-  if (huaweiColumChartLoading || zteColumChartLoading || mobitelChartColumnLoading) {
-    const onAir1 = mobitelChartColumData.chartDataForFrontEnd[0];
-    const onAir2 = ChartDataForColumnGraphVendor[0];
-    onAir = onAir1.map((a, i) => a + onAir2[i]);
-    // ----------------------------------------------
-    const PAT1 = mobitelChartColumData.chartDataForFrontEnd[1];
-    const PAT2 = ChartDataForColumnGraphVendor[1];
-    PAT = PAT1.map((a, i) => a + PAT2[i]);
-    // --------------------------------------------
-    const SAR1 = mobitelChartColumData.chartDataForFrontEnd[2];
-    const SAR2 = ChartDataForColumnGraphVendor[2];
-    SAR = SAR1.map((a, i) => a + SAR2[i]);
-    // --------------------------------------------
-    const Com1 = mobitelChartColumData.chartDataForFrontEnd[3];
-    const Com2 = ChartDataForColumnGraphVendor[3];
-    Com = Com1.map((a, i) => a + Com2[i]);
-    // --------------------------------------------
-    const Ins1 = mobitelChartColumData.chartDataForFrontEnd[4];
-    const Ins2 = ChartDataForColumnGraphVendor[4];
-    Ins = Ins1.map((a, i) => a + Ins2[i]);
-    // --------------------------------------------
-    const Mob1 = mobitelChartColumData.chartDataForFrontEnd[5];
-    const Mob2 = ChartDataForColumnGraphVendor[5];
-    Mob = Mob1.map((a, i) => a + Mob2[i]);
-    // ----------------------------------------------
-  }
+  const onAir1 = ChartDataForColumnGraphMobitel[0];
+  const onAir2 = ChartDataForColumnGraphVendor[0];
+  const onAir = onAir1.map((a, i) => a + onAir2[i]);
+  // ----------------------------------------------
+  const PAT1 = ChartDataForColumnGraphMobitel[1];
+  const PAT2 = ChartDataForColumnGraphVendor[1];
+  const PAT = PAT1.map((a, i) => a + PAT2[i]);
+  // --------------------------------------------
+  const SAR1 = ChartDataForColumnGraphMobitel[2];
+  const SAR2 = ChartDataForColumnGraphVendor[2];
+  const SAR = SAR1.map((a, i) => a + SAR2[i]);
+  // --------------------------------------------
+  const Com1 = ChartDataForColumnGraphMobitel[3];
+  const Com2 = ChartDataForColumnGraphVendor[3];
+  const Com = Com1.map((a, i) => a + Com2[i]);
+  // --------------------------------------------
+  const Ins1 = ChartDataForColumnGraphMobitel[4];
+  const Ins2 = ChartDataForColumnGraphVendor[4];
+  const Ins = Ins1.map((a, i) => a + Ins2[i]);
+  // --------------------------------------------
+  const Mob1 = ChartDataForColumnGraphMobitel[5];
+  const Mob2 = ChartDataForColumnGraphVendor[5];
+  const Mob = Mob1.map((a, i) => a + Mob2[i]);
+  // ----------------------------------------------
 
   const columnChartData = [];
   columnChartData.push(
@@ -310,44 +674,34 @@ export default function DashboardApp() {
 
   // ----------------- Sum of two vendors Chart Data For Area Graph --------------------
 
-  const Allvendor_Site_Ho = [];
-  const Allvendor_On_Air = [];
-  const Allvendor_PTA_Pass = [];
-  const Allvendor_SAR = [];
-  const Allvendor_Commisioned = [];
-  const Allvendor_Installed = [];
-  const Allvendor_Mobilized = [];
-
-  if (huaweiAreaChartLoading || zteAreaChartLoading) {
-    const Site_Ho_Huawei = huaweiAreaChartData.chartDataForFrontEnd[0];
-    const Site_HO_ZTE = zteAreaChartData.chartDataForFrontEnd[0];
-    Allvendor_Site_Ho = Site_Ho_Huawei.map((a, i) => a + Site_HO_ZTE[i]);
-    //--------------------------------------------------
-    const On_Air_Huawei = huaweiAreaChartData.chartDataForFrontEnd[1];
-    const On_Air_ZTE = zteAreaChartData.chartDataForFrontEnd[1];
-    Allvendor_On_Air = On_Air_Huawei.map((a, i) => a + On_Air_ZTE[i]);
-    //---------------------------------------------------
-    const PTA_Pass_Huawei = huaweiAreaChartData.chartDataForFrontEnd[2];
-    const PTA_Pass_ZTE = zteAreaChartData.chartDataForFrontEnd[2];
-    Allvendor_PTA_Pass = PTA_Pass_Huawei.map((a, i) => a + PTA_Pass_ZTE[i]);
-    //---------------------------------------------------
-    const SAR_Huawei = huaweiAreaChartData.chartDataForFrontEnd[3];
-    const SAR_ZTE = zteAreaChartData.chartDataForFrontEnd[3];
-    Allvendor_SAR = SAR_Huawei.map((a, i) => a + SAR_ZTE[i]);
-    //---------------------------------------------------
-    const Commisioned_Huawei = huaweiAreaChartData.chartDataForFrontEnd[4];
-    const Commisioned_ZTE = zteAreaChartData.chartDataForFrontEnd[4];
-    Allvendor_Commisioned = Commisioned_Huawei.map((a, i) => a + Commisioned_ZTE[i]);
-    //---------------------------------------------------
-    const Installed_Huawei = huaweiAreaChartData.chartDataForFrontEnd[5];
-    const Installed_ZTE = zteAreaChartData.chartDataForFrontEnd[5];
-    Allvendor_Installed = Installed_Huawei.map((a, i) => a + Installed_ZTE[i]);
-    //--------------------------------------------------
-    const Mobilized_Huawei = huaweiAreaChartData.chartDataForFrontEnd[6];
-    const Mobilized_ZTE = zteAreaChartData.chartDataForFrontEnd[6];
-    Allvendor_Mobilized = Mobilized_Huawei.map((a, i) => a + Mobilized_ZTE[i]);
-    //-----------------------------------------------
-  }
+  const Site_Ho_Huawei = ChartDataForAreaGraphHuawei[0];
+  const Site_HO_ZTE = ChartDataForAreaGraphZTE[0];
+  const Allvendor_Site_Ho = Site_Ho_Huawei.map((a, i) => a + Site_HO_ZTE[i]);
+  //--------------------------------------------------
+  const On_Air_Huawei = ChartDataForAreaGraphHuawei[1];
+  const On_Air_ZTE = ChartDataForAreaGraphZTE[1];
+  const Allvendor_On_Air = On_Air_Huawei.map((a, i) => a + On_Air_ZTE[i]);
+  //---------------------------------------------------
+  const PTA_Pass_Huawei = ChartDataForAreaGraphHuawei[2];
+  const PTA_Pass_ZTE = ChartDataForAreaGraphZTE[2];
+  const Allvendor_PTA_Pass = PTA_Pass_Huawei.map((a, i) => a + PTA_Pass_ZTE[i]);
+  //---------------------------------------------------
+  const SAR_Huawei = ChartDataForAreaGraphHuawei[3];
+  const SAR_ZTE = ChartDataForAreaGraphZTE[3];
+  const Allvendor_SAR = SAR_Huawei.map((a, i) => a + SAR_ZTE[i]);
+  //---------------------------------------------------
+  const Commisioned_Huawei = ChartDataForAreaGraphHuawei[4];
+  const Commisioned_ZTE = ChartDataForAreaGraphZTE[4];
+  const Allvendor_Commisioned = Commisioned_Huawei.map((a, i) => a + Commisioned_ZTE[i]);
+  //---------------------------------------------------
+  const Installed_Huawei = ChartDataForAreaGraphHuawei[5];
+  const Installed_ZTE = ChartDataForAreaGraphZTE[5];
+  const Allvendor_Installed = Installed_Huawei.map((a, i) => a + Installed_ZTE[i]);
+  //--------------------------------------------------
+  const Mobilized_Huawei = ChartDataForAreaGraphHuawei[6];
+  const Mobilized_ZTE = ChartDataForAreaGraphZTE[6];
+  const Allvendor_Mobilized = Mobilized_Huawei.map((a, i) => a + Mobilized_ZTE[i]);
+  //-----------------------------------------------
 
   // ----------------- ChartDataForAreaGraph ---------------------------------------------
 
@@ -363,50 +717,40 @@ export default function DashboardApp() {
 
   //-----------------------------------------------------------------------------------
 
-  const A_Ho = 0;
-  const A_On_Air = 0;
-  const A_PAT_Pass = 0;
-  const A_SAR = 0;
-  const A_Commisioned = 0;
-  const A_Installed = 0;
-  const A_Mobilized = 0;
+  const A_Ho_1 = ChartDataForAreaGraphMobitel[0];
+  const A_Ho_2 = ChartDataForAreaGraphVendor[0];
+  const A_Ho = A_Ho_1.map((a, i) => a + A_Ho_2[i]);
 
-  if (huaweiAreaChartLoading || zteAreaChartLoading || mobitelChartAreaLoading) {
-    const A_Ho_1 = mobitelChartAreaData.chartDataForFrontEnd[0];
-    const A_Ho_2 = ChartDataForAreaGraphVendor[0];
-    A_Ho = A_Ho_1.map((a, i) => a + A_Ho_2[i]);
+  // --------------------------------------------
+  const A_On_Air1 = ChartDataForAreaGraphMobitel[1];
+  const A_On_Air2 = ChartDataForAreaGraphVendor[1];
+  const A_On_Air = A_On_Air1.map((a, i) => a + A_On_Air2[i]);
 
-    // --------------------------------------------
-    const A_On_Air1 = mobitelChartAreaData.chartDataForFrontEnd[1];
-    const A_On_Air2 = ChartDataForAreaGraphVendor[1];
-    A_On_Air = A_On_Air1.map((a, i) => a + A_On_Air2[i]);
+  //---------------------------------------------
+  const A_PAT_Pass1 = ChartDataForAreaGraphMobitel[2];
+  const A_PAT_Pass2 = ChartDataForAreaGraphVendor[2];
+  const A_PAT_Pass = A_PAT_Pass1.map((a, i) => a + A_PAT_Pass2[i]);
+  //--------------------------------------------
 
-    //---------------------------------------------
-    const A_PAT_Pass1 = mobitelChartAreaData.chartDataForFrontEnd[2];
-    const A_PAT_Pass2 = ChartDataForAreaGraphVendor[2];
-    A_PAT_Pass = A_PAT_Pass1.map((a, i) => a + A_PAT_Pass2[i]);
-    //--------------------------------------------
+  const A_SAR_1 = ChartDataForAreaGraphMobitel[3];
+  const A_SAR_2 = ChartDataForAreaGraphVendor[3];
+  const A_SAR = A_SAR_1.map((a, i) => a + A_SAR_2[i]);
+  //--------------------------------------------
 
-    const A_SAR_1 = mobitelChartAreaData.chartDataForFrontEnd[3];
-    const A_SAR_2 = ChartDataForAreaGraphVendor[3];
-    A_SAR = A_SAR_1.map((a, i) => a + A_SAR_2[i]);
-    //--------------------------------------------
+  const A_Commisioned_1 = ChartDataForAreaGraphMobitel[4];
+  const A_Commisioned_2 = ChartDataForAreaGraphVendor[4];
+  const A_Commisioned = A_Commisioned_1.map((a, i) => a + A_Commisioned_2[i]);
+  //---------------------------------------------
 
-    const A_Commisioned_1 = mobitelChartAreaData.chartDataForFrontEnd[4];
-    const A_Commisioned_2 = ChartDataForAreaGraphVendor[4];
-    A_Commisioned = A_Commisioned_1.map((a, i) => a + A_Commisioned_2[i]);
-    //---------------------------------------------
+  const A_Installed_1 = ChartDataForAreaGraphMobitel[5];
+  const A_Installed_2 = ChartDataForAreaGraphVendor[5];
+  const A_Installed = A_Installed_1.map((a, i) => a + A_Installed_2[i]);
+  //---------------------------------------------
 
-    const A_Installed_1 = mobitelChartAreaData.chartDataForFrontEnd[5];
-    const A_Installed_2 = ChartDataForAreaGraphVendor[5];
-    A_Installed = A_Installed_1.map((a, i) => a + A_Installed_2[i]);
-    //---------------------------------------------
-
-    const A_Mobilized_1 = mobitelChartAreaData.chartDataForFrontEnd[6];
-    const A_Mobilized_2 = ChartDataForAreaGraphVendor[6];
-    A_Mobilized = A_Mobilized_1.map((a, i) => a + A_Mobilized_2[i]);
-    //---------------------------------------------
-  }
+  const A_Mobilized_1 = ChartDataForAreaGraphMobitel[6];
+  const A_Mobilized_2 = ChartDataForAreaGraphVendor[6];
+  const A_Mobilized = A_Mobilized_1.map((a, i) => a + A_Mobilized_2[i]);
+  //---------------------------------------------
 
   const areaChartData = [];
 
@@ -427,7 +771,7 @@ export default function DashboardApp() {
 
   const areachat_chart_one = {
     dataLine: {
-      labels: mobitelChartAreaData.XaxisDataForTheGraphs,
+      labels: XaxisDataMobitelAreaGraph,
       datasets: [
         {
           label: areaChartData[0].name,
@@ -497,183 +841,184 @@ export default function DashboardApp() {
   };
 
   return (
-    <>
-      {mobitelDatabseLoading ||
-      mobitelOverviewLoading ||
-      mobitelChartColumnLoading ||
-      mobitelChartAreaLoading ||
-      mobitelScopeLoading ||
-      mobitelLastUpdateLoading ||
-      huaweiDatabaseLoading ||
-      huaweiFiltedNameLoading ||
-      huaweiColumChartLoading ||
-      huaweiAreaChartLoading ||
-      huaweiScopeLoading ||
-      huaweiLastUpdateLoading ||
-      zteDatabaseLoading ||
-      zteFiltedNameLoading ||
-      zteColumChartLoading ||
-      zteAreaChartLoading ||
-      zteScopeLoading ||
-      zteLastUpdateLoading ? (
-        <h1>Loding....</h1>
-      ) : error ? (
-        <h1>error...</h1>
-      ) : (
-        <Page title="Dashboard | Mobitel Projects Dashboard">
-          <Container maxWidth="xl">
-            <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-              <Typography variant="h6" gutterBottom>
-                All Projects Overview
-              </Typography>
-            </Stack>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-              <Typography variant="caption1">Select Options</Typography>
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-                spacing={1}
-                mb={0}
-              >
-                <TextField
-                  style={{ float: 'right' }}
-                  sx={{ width: 200 }}
-                  size="small"
-                  id="outlined-select-currency"
-                  select
-                  value={MobitelDropdownValue}
-                  onChange={handleMobitelDropdownValue}
-                >
-                  {/* {MobitelprojectNames.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))} */}
-                </TextField>
-                <TextField
-                  style={{ float: 'right' }}
-                  sx={{ width: 200 }}
-                  size="small"
-                  id="outlined-select-currency"
-                  select
-                  value={VendorHuaweiDropdownValue}
-                  onChange={handleHuaweiVendorDropdownValue}
-                >
-                  {/* {VendorprojectNames.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))} */}
-                </TextField>
-                <TextField
-                  style={{ float: 'right' }}
-                  sx={{ width: 200 }}
-                  size="small"
-                  id="outlined-select-currency"
-                  select
-                  value={VendorZTEDropdownValue}
-                  onChange={handleZTEVendorDropdownValue}
-                >
-                  {/* {VendorprojectsZTENames.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))} */}
-                </TextField>
-              </Stack>
-            </Stack>
+    <Page title="Dashboard | Mobitel Projects Dashboard">
+      <Container maxWidth="xl">
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+          <Typography variant="h6" gutterBottom>
+            All Projects Overview
+          </Typography>
+        </Stack>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+          <Typography variant="caption1">Select Options</Typography>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={1}
+            mb={0}
+          >
+            <TextField
+              style={{ float: 'right' }}
+              sx={{ width: 200 }}
+              size="small"
+              id="outlined-select-currency"
+              select
+              value={MobitelDropdownValue}
+              onChange={handleMobitelDropdownValue}
+            >
+              {MobitelprojectNames.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              style={{ float: 'right' }}
+              sx={{ width: 200 }}
+              size="small"
+              id="outlined-select-currency"
+              select
+              value={VendorHuaweiDropdownValue}
+              onChange={handleHuaweiVendorDropdownValue}
+            >
+              {VendorprojectNames.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              style={{ float: 'right' }}
+              sx={{ width: 200 }}
+              size="small"
+              id="outlined-select-currency"
+              select
+              value={VendorZTEDropdownValue}
+              onChange={handleZTEVendorDropdownValue}
+            >
+              {VendorprojectsZTENames.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Stack>
+        </Stack>
 
-            <Grid container spacing={1}>
-              <Grid item xs={12} sm={6} md={2.4}>
-                <AppWeeklySales scopeData={ScopeData} />
-              </Grid>
-              <Grid item xs={12} sm={6} md={2.4}>
-                <AppBugReports1 handoverData={HandoverData} />
-              </Grid>
-              <Grid item xs={12} sm={6} md={2.4}>
-                <AppItemOrders patData={PATPassData} />
-              </Grid>
-              <Grid item xs={12} sm={6} md={2.4}>
-                <AppNewUsers onAirData={OnAirData} />
-              </Grid>
-              <Grid item xs={12} sm={6} md={2.4}>
-                <AppBugReports holdData={HoldSitesData} />
-              </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                <MDBContainer style={{ backgroundColor: 'rgb(4, 20, 38)', borderRadius: '15px' }}>
-                  <CardHeader title="All Sites Completed" subheader="Cumilative progress" />
-
-                  <Line data={areachat_chart_one.dataLine} />
-                </MDBContainer>
-              </Grid>
-
-              <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                <AppWebsiteVisits
-                  chartData={areaChartData}
-                  xaxisData={mobitelChartAreaData.XaxisDataForTheGraphs}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={6} lg={8}>
-                <AppWebsiteVisits
-                  chartData={columnChartData}
-                  xaxisData={mobitelChartColumData.XaxisDataForTheGraphs}
-                />
-              </Grid>
-              <Grid item xs={12} md={6} lg={4}>
-                <AppCurrentVisits />
-              </Grid>
-
-              <Grid item xs={12} md={6} lg={12} mb={0}>
-                {/* <AppWebsiteVisits1
-                  weeklyProgressDataHuawei={huaweiDatabaseData.weeklyProgressDataForFrontEnd}
-                  weeklyProgressDataZTE={zteDatabaseData.weeklyProgressDataForFrontEnd}
-                  completedSitesHuawei={huaweiDatabaseData.WeeklyProgressOnAirSitesData}
-                  completedSitesZTE={zteDatabaseData.WeeklyProgressOnAirSitesData}
-                /> */}
-              </Grid>
-              <Grid item xs={12} md={6} lg={12} mb={0}>
-                <Card style={{ height: '520px' }}>
-                  <Stack sx={{ p: 2 }} direction="row">
-                    <Button
-                      color="secondary"
-                      onClick={() => {
-                        showMobitelProjectsUpdates();
-                        fetchMobitelLastUpdatesData();
-                        fetchHuaweiProjectsLastUpdates();
-                        fetchZTEProjectsLastUpdates();
-                      }}
-                    >
-                      Mobitel projects
-                    </Button>
-                    <Button
-                      color="secondary"
-                      onClick={() => {
-                        showVendorProjectsUpdates();
-                        fetchMobitelLastUpdatesData();
-                        fetchHuaweiProjectsLastUpdates();
-                        fetchZTEProjectsLastUpdates();
-                      }}
-                    >
-                      Vendor projects
-                    </Button>
-                  </Stack>
-                  {/* {MobitelUpdatesIsShown && (
-                    <LastUpdatesMobitel mobitelLastUpdates={mobitelLastUpdateData.existingPosts} />
-                  )}
-                  {VendorUpdatesIsShown && (
-                    <LastUpdatesVendor
-                      huaweiLastUpdates={huaweiLastUpdateData.existingPosts}
-                      zteLastUpdates={zteLastUpdateData.existingPosts}
-                    />
-                  )} */}
-                </Card>
-              </Grid>
+        <Grid container spacing={1}>
+          {mobitelScopeLoading || huaweiScopeLoading || zteScopeLoading ? (
+            <Loading />
+          ) : (
+            <Grid item xs={12} sm={6} md={2.4}>
+              <AppWeeklySales scopeData={ScopeData} />
             </Grid>
-          </Container>
-        </Page>
-      )}
-    </>
+          )}
+
+          {mobitelDatabseLoading || huaweiDatabaseLoading || zteDatabaseLoading ? (
+            <Loading />
+          ) : (
+            <Grid item xs={12} sm={6} md={2.4}>
+              <AppBugReports1 handoverData={HandoverData} />
+            </Grid>
+          )}
+
+          {mobitelDatabseLoading || huaweiDatabaseLoading || zteDatabaseLoading ? (
+            <Loading />
+          ) : (
+            <Grid item xs={12} sm={6} md={2.4}>
+              <AppItemOrders patData={PATPassData} />
+            </Grid>
+          )}
+
+          {mobitelDatabseLoading || huaweiDatabaseLoading || zteDatabaseLoading ? (
+            <Loading />
+          ) : (
+            <Grid item xs={12} sm={6} md={2.4}>
+              <AppNewUsers onAirData={OnAirData} />
+            </Grid>
+          )}
+
+          {mobitelDatabseLoading || huaweiDatabaseLoading || zteDatabaseLoading ? (
+            <Loading />
+          ) : (
+            <Grid item xs={12} sm={6} md={2.4}>
+              <AppBugReports holdData={HoldSitesData} />
+            </Grid>
+          )}
+
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <MDBContainer style={{ backgroundColor: 'rgb(4, 20, 38)', borderRadius: '15px' }}>
+              <CardHeader title="All Sites Completed" subheader="Cumilative progress" />
+
+              <Line data={areachat_chart_one.dataLine} />
+            </MDBContainer>
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <AppWebsiteVisits chartData={areaChartData} xaxisData={XaxisDataMobitelAreaGraph} />
+          </Grid>
+
+          <Grid item xs={12} md={6} lg={8}>
+            <AppWebsiteVisits chartData={columnChartData} xaxisData={XaxisDataMobitel} />
+          </Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <AppCurrentVisits
+              projectCompletionMobitel={ProjectCompletionMobitel}
+              projectCompletionHuawei={ProjectCompletionHuawei}
+              projectCompletionZTE={ProjectCompletionZTE}
+            />
+          </Grid>
+
+          <Grid item xs={12} md={6} lg={12} mb={0}>
+            <AppWebsiteVisits1
+              xAxisDaysLabel={XAxisDaysLabelMobitel}
+              weeklyProgressDataMobitel={WeeklyProgressDataMobitel}
+              weeklyProgressDataHuawei={WeeklyProgressDataHuawei}
+              weeklyProgressDataZTE={WeeklyProgressDataZTE}
+              completedSitesMobitel={CompletedSitesMobitel}
+              completedSitesHuawei={CompletedSitesHuawei}
+              completedSitesZTE={CompletedSitesZTE}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={12} mb={0}>
+            <Card style={{ height: '520px' }}>
+              <Stack sx={{ p: 2 }} direction="row">
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    showMobitelProjectsUpdates();
+                    fetchMobitelProjectsLastUpdates();
+                    fetchHuaweiVendorProjectsLastUpdates();
+                    fetchZTEVendorProjectsLastUpdates();
+                  }}
+                >
+                  Mobitel projects
+                </Button>
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    showVendorProjectsUpdates();
+                    fetchMobitelProjectsLastUpdates();
+                    fetchHuaweiVendorProjectsLastUpdates();
+                    fetchZTEVendorProjectsLastUpdates();
+                  }}
+                >
+                  Vendor projects
+                </Button>
+              </Stack>
+              {MobitelUpdatesIsShown && (
+                <LastUpdatesMobitel mobitelLastUpdates={MobitelLastUpdates} />
+              )}
+              {VendorUpdatesIsShown && (
+                <LastUpdatesVendor
+                  huaweiLastUpdates={HuaweiLastUpdates}
+                  zteLastUpdates={ZTELastUpdates}
+                />
+              )}
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </Page>
   );
 }

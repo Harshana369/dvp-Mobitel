@@ -1,7 +1,5 @@
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
-import { useSelector } from 'react-redux';
-
 // material
 import { useTheme, styled } from '@mui/material/styles';
 import { Card, CardHeader } from '@mui/material';
@@ -31,35 +29,21 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
   }
 }));
 
-/* eslint-disable */
-
 // ----------------------------------------------------------------------
-export default function AppCurrentVisits() {
-  const mobitelDatabseDetails = useSelector((state) => state.mobitelDatabse);
-  const { mobitelDatabaseLoading, error, mobitelDatabaseData } = mobitelDatabseDetails;
-
-  const huaweiDatabseDetails = useSelector((state) => state.huaweiDatabase);
-  const { huaweiDatabaseLoading, huaweiDatabaseData } = huaweiDatabseDetails;
-
-  const zteDatabseDetails = useSelector((state) => state.zteDatabase);
-  const { zteDatabaseLoading, zteDatabaseData } = zteDatabseDetails;
-
+export default function AppCurrentVisits({
+  projectCompletionMobitel,
+  projectCompletionHuawei,
+  projectCompletionZTE
+}) {
   const theme = useTheme();
 
-  const projectCompletionVendor = [];
-  const ProjCom = [];
+  const ProjComHuawei = projectCompletionHuawei;
+  const ProjComZTE = projectCompletionZTE;
+  const projectCompletionVendor = ProjComHuawei.map((a, i) => a + ProjComZTE[i]);
 
-  if (huaweiDatabaseLoading || zteDatabaseLoading) {
-    const ProjComHuawei = huaweiDatabaseData.ProjectCompletionForFrontEnd;
-    const ProjComZTE = zteDatabaseData.ProjectCompletionForFrontEnd;
-    projectCompletionVendor = ProjComHuawei.map((a, i) => a + ProjComZTE[i]);
-  }
-
-  if (mobitelDatabaseLoading || huaweiDatabaseLoading || zteDatabaseLoading) {
-    const ProjCom1 = mobitelDatabaseData.ProjectCompletionForFrontEnd;
-    const ProjCom2 = projectCompletionVendor;
-    ProjCom = ProjCom1.map((a, i) => a + ProjCom2[i]);
-  }
+  const ProjCom1 = projectCompletionMobitel;
+  const ProjCom2 = projectCompletionVendor;
+  const ProjCom = ProjCom1.map((a, i) => a + ProjCom2[i]);
 
   const CHART_DATA = ProjCom;
   const chartOptions = merge(BaseOptionChart(), {
@@ -89,21 +73,13 @@ export default function AppCurrentVisits() {
   });
 
   return (
-    <>
-      {mobitelDatabaseLoading || huaweiDatabaseLoading || zteDatabaseLoading ? (
-        <h1>Loding....</h1>
-      ) : error ? (
-        <h1>error...</h1>
-      ) : (
-        <Card>
-          <CardHeader title="Project Completion" />
-          <ChartWrapperStyle dir="ltr">
-            <ReactApexChart type="donut" series={CHART_DATA} options={chartOptions} height={310} />
-          </ChartWrapperStyle>
-          <br />
-          <br />
-        </Card>
-      )}
-    </>
+    <Card>
+      <CardHeader title="Project Completion" />
+      <ChartWrapperStyle dir="ltr">
+        <ReactApexChart type="donut" series={CHART_DATA} options={chartOptions} height={310} />
+      </ChartWrapperStyle>
+      <br />
+      <br />
+    </Card>
   );
 }
