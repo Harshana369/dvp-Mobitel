@@ -90,7 +90,7 @@ export const fetchMobitelScopeData = (MobitelDropdownValue) => async (dispatch) 
   try {
     dispatch({ type: MOBITEL_SCOPE_DATA_REQUEST });
     const { data } = await axiosInstance.get('/mobitelProjectsOverviewTable', {
-      params: { Project: MobitelDropdownValue }
+      params: { ProjectName: MobitelDropdownValue }
     });
 
     dispatch({ type: MOBITEL_SCOPE_DATA_SUCCESS, payload: data });

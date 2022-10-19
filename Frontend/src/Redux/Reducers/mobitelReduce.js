@@ -22,11 +22,11 @@ import {
 export const mobitelDatabseReducer = (state = { mobitelDatabaseData: [] }, action) => {
   switch (action.type) {
     case MOBITEL_DATABASE_REQUEST:
-      return { loading: true, mobitelDatabaseData: [] };
+      return { mobitelDatabseLoading: true, mobitelDatabaseData: [] };
     case MOBITEL_DATABASE_SUCCESS:
-      return { loading: false, mobitelDatabaseData: action.payload };
+      return { mobitelDatabseLoading: false, mobitelDatabaseData: action.payload };
     case MOBITEL_DATABASE_FAIL:
-      return { loading: false, error: action.payload };
+      return { mobitelDatabseLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -35,11 +35,11 @@ export const mobitelDatabseReducer = (state = { mobitelDatabaseData: [] }, actio
 export const mobitelOverviewReducer = (state = { mobitelOverviewData: [] }, action) => {
   switch (action.type) {
     case MOBITEL_OVERVIEW_REQUEST:
-      return { loading: true, mobitelOverviewData: [] };
+      return { mobitelOverviewLoading: true, mobitelOverviewData: [] };
     case MOBITEL_OVERVIEW_SUCCESS:
-      return { loading: false, mobitelOverviewData: action.payload };
+      return { mobitelOverviewLoading: false, mobitelOverviewData: action.payload };
     case MOBITEL_OVERVIEW_FAIL:
-      return { loading: false, error: action.payload };
+      return { mobitelOverviewLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -48,11 +48,11 @@ export const mobitelOverviewReducer = (state = { mobitelOverviewData: [] }, acti
 export const mobitelChartColumnReducer = (state = { mobitelChartColumData: [] }, action) => {
   switch (action.type) {
     case MOBITEL_CHART_COLUMN_DATA_REQUEST:
-      return { loading: true, mobitelChartColumData: [] };
+      return { mobitelChartColumnLoading: true, mobitelChartColumData: [] };
     case MOBITEL_CHART_COLUMN_DATA_SUCCESS:
-      return { loading: false, mobitelChartColumData: action.payload };
+      return { mobitelChartColumnLoading: false, mobitelChartColumData: action.payload };
     case MOBITEL_CHART_COLUMN_DATA_FAIL:
-      return { loading: false, error: action.payload };
+      return { mobitelChartColumnLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -61,11 +61,11 @@ export const mobitelChartColumnReducer = (state = { mobitelChartColumData: [] },
 export const mobitelChartAreaReducer = (state = { mobitelChartAreaData: [] }, action) => {
   switch (action.type) {
     case MOBITEL_CHART_AREA_DATA_REQUEST:
-      return { loading: true, mobitelChartAreaData: [] };
+      return { mobitelChartAreaLoading: true, mobitelChartAreaData: [] };
     case MOBITEL_CHART_AREA_DATA_SUCCESS:
-      return { loading: false, mobitelChartAreaData: action.payload };
+      return { mobitelChartAreaLoading: false, mobitelChartAreaData: action.payload };
     case MOBITEL_CHART_AREA_DATA_FAIL:
-      return { loading: false, error: action.payload };
+      return { mobitelChartAreaLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -74,11 +74,11 @@ export const mobitelChartAreaReducer = (state = { mobitelChartAreaData: [] }, ac
 export const mobitelScopeReducer = (state = { mobitelScopeData: [] }, action) => {
   switch (action.type) {
     case MOBITEL_SCOPE_DATA_REQUEST:
-      return { loading: true, mobitelScopeData: [] };
+      return { mobitelScopeLoading: true, mobitelScopeData: [] };
     case MOBITEL_SCOPE_DATA_SUCCESS:
-      return { loading: false, mobitelScopeData: action.payload };
+      return { mobitelScopeLoading: false, mobitelScopeData: action.payload };
     case MOBITEL_SCOPE_DATA_FAIL:
-      return { loading: false, error: action.payload };
+      return { mobitelScopeLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -87,11 +87,11 @@ export const mobitelScopeReducer = (state = { mobitelScopeData: [] }, action) =>
 export const mobitelLastUpdateReducer = (state = { mobitelLastUpdateData: [] }, action) => {
   switch (action.type) {
     case MOBITEL_LAST_UPDATE_REQUEST:
-      return { loading: true, mobitelLastUpdateData: [] };
+      return { mobitelLastUpdateLoading: true, mobitelLastUpdateData: [] };
     case MOBITEL_LAST_UPDATE_SUCCESS:
-      return { loading: false, mobitelLastUpdateData: action.payload };
+      return { mobitelLastUpdateLoading: false, mobitelLastUpdateData: action.payload };
     case MOBITEL_LAST_UPDATE_FAIL:
-      return { loading: false, error: action.payload };
+      return { mobitelLastUpdateLoading: false, error: action.payload };
     default:
       return state;
   }

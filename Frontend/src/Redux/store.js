@@ -41,7 +41,7 @@ const reducer = combineReducers({
   huaweiScope: huaweiScopeReducer,
   huaweiLastUpdate: huaweiLastUpdateReducer,
   //---------------------
-  zteDatabasezteDatabase: zteDatabaseReducer,
+  zteDatabase: zteDatabaseReducer,
   zteFiltedName: zteFiltedNameReducer,
   zteColumChart: zteColumChartReducer,
   zteAreaChart: zteAreaChartReducer,

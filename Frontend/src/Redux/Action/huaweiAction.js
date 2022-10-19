@@ -97,7 +97,6 @@ export const fetchHuaweiScopeData = (VendorHuaweiDropdownValue) => async (dispat
       params: { Project: VendorHuaweiDropdownValue }
     });
 
-    console.log(data);
     dispatch({ type: HUAWEI_SCOPE_DATA_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

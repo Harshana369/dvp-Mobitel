@@ -22,11 +22,11 @@ import {
 export const zteDatabaseReducer = (state = { zteDatabaseData: [] }, action) => {
   switch (action.type) {
     case ZTE_DATABASE_REQUEST:
-      return { loading: true, zteDatabaseData: [] };
+      return { zteDatabaseLoading: true, zteDatabaseData: [] };
     case ZTE_DATABASE_SUCCESS:
-      return { loading: false, zteDatabaseData: action.payload };
+      return { zteDatabaseLoading: false, zteDatabaseData: action.payload };
     case ZTE_DATABASE_FAIL:
-      return { loading: false, error: action.payload };
+      return { zteDatabaseLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -35,11 +35,11 @@ export const zteDatabaseReducer = (state = { zteDatabaseData: [] }, action) => {
 export const zteFiltedNameReducer = (state = { zteFiltedNameData: [] }, action) => {
   switch (action.type) {
     case ZTE_FILTERED_NAMES_REQUEST:
-      return { loading: true, zteFiltedNameData: [] };
+      return { zteFiltedNameLoading: true, zteFiltedNameData: [] };
     case ZTE_FILTERED_NAMES_SUCCESS:
-      return { loading: false, zteFiltedNameData: action.payload };
+      return { zteFiltedNameLoading: false, zteFiltedNameData: action.payload };
     case ZTE_FILTERED_NAMES_FAIL:
-      return { loading: false, error: action.payload };
+      return { zteFiltedNameLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -48,11 +48,11 @@ export const zteFiltedNameReducer = (state = { zteFiltedNameData: [] }, action) 
 export const zteColumChartReducer = (state = { zteColumChartData: [] }, action) => {
   switch (action.type) {
     case ZTE_COLUMN_CHART_DATA_REQUEST:
-      return { loading: true, zteColumChartData: [] };
+      return { zteColumChartLoading: true, zteColumChartData: [] };
     case ZTE_COLUMN_CHART_DATA_SUCCESS:
-      return { loading: false, zteColumChartData: action.payload };
+      return { zteColumChartLoading: false, zteColumChartData: action.payload };
     case ZTE_COLUMN_CHART_DATA_FAIL:
-      return { loading: false, error: action.payload };
+      return { zteColumChartLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -61,11 +61,11 @@ export const zteColumChartReducer = (state = { zteColumChartData: [] }, action) 
 export const zteAreaChartReducer = (state = { zteAreaChartData: [] }, action) => {
   switch (action.type) {
     case ZTE_AREA_CHART_DATA_REQUEST:
-      return { loading: true, zteAreaChartData: [] };
+      return { zteAreaChartLoading: true, zteAreaChartData: [] };
     case ZTE_AREA_CHART_DATA_SUCCESS:
-      return { loading: false, zteAreaChartData: action.payload };
+      return { zteAreaChartLoading: false, zteAreaChartData: action.payload };
     case ZTE_AREA_CHART_DATA_FAIL:
-      return { loading: false, error: action.payload };
+      return { zteAreaChartLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -74,11 +74,11 @@ export const zteAreaChartReducer = (state = { zteAreaChartData: [] }, action) =>
 export const zteScopeReducer = (state = { zteScopeData: [] }, action) => {
   switch (action.type) {
     case ZTE_SCOPE_DATA_REQUEST:
-      return { loading: true, zteScopeData: [] };
+      return { zteScopeLoading: true, zteScopeData: [] };
     case ZTE_SCOPE_DATA_SUCCESS:
-      return { loading: false, zteScopeData: action.payload };
+      return { zteScopeLoading: false, zteScopeData: action.payload };
     case ZTE_SCOPE_DATA_FAIL:
-      return { loading: false, error: action.payload };
+      return { zteScopeLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -87,11 +87,11 @@ export const zteScopeReducer = (state = { zteScopeData: [] }, action) => {
 export const zteLastUpdateReducer = (state = { zteLastUpdateData: [] }, action) => {
   switch (action.type) {
     case ZTE_LAST_UPDATE_REQUEST:
-      return { loading: true, zteLastUpdateData: [] };
+      return { zteLastUpdateLoading: true, zteLastUpdateData: [] };
     case ZTE_LAST_UPDATE_SUCCESS:
-      return { loading: false, zteLastUpdateData: action.payload };
+      return { zteLastUpdateLoading: false, zteLastUpdateData: action.payload };
     case ZTE_LAST_UPDATE_FAIL:
-      return { loading: false, error: action.payload };
+      return { zteLastUpdateLoading: false, error: action.payload };
     default:
       return state;
   }

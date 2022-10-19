@@ -39,11 +39,11 @@ export const fetchZTEData = (VendorZTEDropdownValue) => async (dispatch) => {
   }
 };
 
-export const fetchZTEProjectNames = (VendorZTEDropdownValue) => async (dispatch) => {
+export const fetchZTEProjectNames = () => async (dispatch) => {
   try {
     dispatch({ type: ZTE_FILTERED_NAMES_REQUEST });
     const { data } = await axiosInstance.get('/filteredVendorProjectsNamesArray', {
-      params: { Project: VendorZTEDropdownValue }
+      params: { Vendor: 'ZTE' }
     });
 
     dispatch({ type: ZTE_FILTERED_NAMES_SUCCESS, payload: data });
@@ -94,7 +94,7 @@ export const fetchZTEScopeData = (VendorZTEDropdownValue) => async (dispatch) =>
   try {
     dispatch({ type: ZTE_SCOPE_DATA_REQUEST });
     const { data } = await axiosInstance.get('/vendorProjectsOverviewTable', {
-      params: { Project: VendorZTEDropdownValue }
+      params: { ProjectName: VendorZTEDropdownValue }
     });
 
     dispatch({ type: ZTE_SCOPE_DATA_SUCCESS, payload: data });

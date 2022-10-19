@@ -22,11 +22,11 @@ import {
 export const huaweiDatabaseReducer = (state = { huaweiDatabaseData: [] }, action) => {
   switch (action.type) {
     case HUAWEI_DATABASE_REQUEST:
-      return { loading: true, huaweiDatabaseData: [] };
+      return { huaweiDatabaseLoading: true, huaweiDatabaseData: [] };
     case HUAWEI_DATABASE_SUCCESS:
-      return { loading: false, huaweiDatabaseData: action.payload };
+      return { huaweiDatabaseloading: false, huaweiDatabaseData: action.payload };
     case HUAWEI_DATABASE_FAIL:
-      return { loading: false, error: action.payload };
+      return { huaweiDatabaseloading: false, error: action.payload };
     default:
       return state;
   }
@@ -35,11 +35,11 @@ export const huaweiDatabaseReducer = (state = { huaweiDatabaseData: [] }, action
 export const huaweiFiltedNameReducer = (state = { huaweiFiltedNameData: [] }, action) => {
   switch (action.type) {
     case HUAWEI_FILTERED_NAMES_REQUEST:
-      return { loading: true, huaweiFiltedNameData: [] };
+      return { huaweiFiltedNameLoading: true, huaweiFiltedNameData: [] };
     case HUAWEI_FILTERED_NAMES_SUCCESS:
-      return { loading: false, huaweiFiltedNameData: action.payload };
+      return { huaweiFiltedNameLoading: false, huaweiFiltedNameData: action.payload };
     case HUAWEI_FILTERED_NAMES_FAIL:
-      return { loading: false, error: action.payload };
+      return { huaweiFiltedNameLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -48,11 +48,11 @@ export const huaweiFiltedNameReducer = (state = { huaweiFiltedNameData: [] }, ac
 export const huaweiColumChartReducer = (state = { huaweiColumChartData: [] }, action) => {
   switch (action.type) {
     case HUAWEI_COLUMN_CHART_DATA_REQUEST:
-      return { loading: true, huaweiColumChartData: [] };
+      return { huaweiColumChartLoading: true, huaweiColumChartData: [] };
     case HUAWEI_COLUMN_CHART_DATA_SUCCESS:
-      return { loading: false, huaweiColumChartData: action.payload };
+      return { huaweiColumChartLoading: false, huaweiColumChartData: action.payload };
     case HUAWEI_COLUMN_CHART_DATA_FAIL:
-      return { loading: false, error: action.payload };
+      return { huaweiColumChartLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -61,11 +61,11 @@ export const huaweiColumChartReducer = (state = { huaweiColumChartData: [] }, ac
 export const huaweiAreaChartReducer = (state = { huaweiAreaChartData: [] }, action) => {
   switch (action.type) {
     case HUAWEI_AREA_CHART_DATA_REQUEST:
-      return { loading: true, huaweiAreaChartData: [] };
+      return { huaweiAreaChartLoading: true, huaweiAreaChartData: [] };
     case HUAWEI_AREA_CHART_DATA_SUCCESS:
-      return { loading: false, huaweiAreaChartData: action.payload };
+      return { huaweiAreaChartLoading: false, huaweiAreaChartData: action.payload };
     case HUAWEI_AREA_CHART_DATA_FAIL:
-      return { loading: false, error: action.payload };
+      return { huaweiAreaChartLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -74,11 +74,11 @@ export const huaweiAreaChartReducer = (state = { huaweiAreaChartData: [] }, acti
 export const huaweiScopeReducer = (state = { huaweiScopeData: [] }, action) => {
   switch (action.type) {
     case HUAWEI_SCOPE_DATA_REQUEST:
-      return { loading: true, huaweiScopeData: [] };
+      return { huaweiScopeLoading: true, huaweiScopeData: [] };
     case HUAWEI_SCOPE_DATA_SUCCESS:
-      return { loading: false, huaweiScopeData: action.payload };
+      return { huaweiScopeLoading: false, huaweiScopeData: action.payload };
     case HUAWEI_SCOPE_DATA_FAIL:
-      return { loading: false, error: action.payload };
+      return { huaweiScopeLoading: false, error: action.payload };
     default:
       return state;
   }
@@ -87,11 +87,11 @@ export const huaweiScopeReducer = (state = { huaweiScopeData: [] }, action) => {
 export const huaweiLastUpdateReducer = (state = { huaweiLastUpdateData: [] }, action) => {
   switch (action.type) {
     case HUAWEI_LAST_UPDATE_REQUEST:
-      return { loading: true, huaweiLastUpdateData: [] };
+      return { huaweiLastUpdateLoading: true, huaweiLastUpdateData: [] };
     case HUAWEI_LAST_UPDATE_SUCCESS:
-      return { loading: false, huaweiLastUpdateData: action.payload };
+      return { huaweiLastUpdateLoading: false, huaweiLastUpdateData: action.payload };
     case HUAWEI_LAST_UPDATE_FAIL:
-      return { loading: false, error: action.payload };
+      return { huaweiLastUpdateLoading: false, error: action.payload };
     default:
       return state;
   }
