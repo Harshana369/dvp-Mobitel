@@ -136,4 +136,6 @@ const dataSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("MobitelProjectsDatabase", dataSchema);
+const MobitelData = mongoose.model("MobitelProjectsDatabase", dataSchema);
+
+module.exports = MobitelData;

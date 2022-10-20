@@ -23,6 +23,9 @@ app.get("/", (req, res, next) => {
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/private", require("./routes/private"));
 
+//Data backup
+require("./routes/DatabaseBlackup.js");
+
 // Routes
 const vendorProjectsOverviewTableRoutes = require("./routes/vendorProjectsOverviewTableRoutes.js");
 const vendorProjectsOverviewData = require("./routes/VendorDatabaseTableRoutes/vendorProjectsOverviewDataRoutes.js");
@@ -66,6 +69,8 @@ const vendorDatabasesPendingTasks = require("./routes/VendorDatabaseTableRoutes/
 
 const mobitelProjectsLastUpdates = require("./routes/MobitelDatabaseTableRoutes/mobitelProjectsLastUpdatesRoutes.js");
 const vendorProjectsLastUpdates = require("./routes/VendorDatabaseTableRoutes/vendorProjectsLastUpdatesRoutes.js");
+
+const mobitelColumnHideShow = require("./routes/columnShowHide/mobitelDatabase.js");
 
 // Error Handler Middleware
 app.use(errorHandler);
@@ -112,6 +117,8 @@ app.use(vendorDatabasesPendingTasks);
 app.use(mobitelProjectsLastUpdates);
 app.use(vendorProjectsLastUpdates);
 
+app.use("/column", mobitelColumnHideShow);
+
 require("dotenv").config({ path: "./.env" });
 
 // --------------------------------------------------------------------------
@@ -141,35 +148,3 @@ process.on("unhandledRejection", (err, promise) => {
 });
 
 //----------------------------------------------------------------------
-// function backupMongoDB() {
-
-//   const child = spawn("mongoexport",[
-//     '--uri=',
-//     'mongodb+srv://harshana12:harshana1945@mproject.vkxxspb.mongodb.net/mproject',
-//     '--collection',
-//     'mobitelprojectsdatabases',
-//     '--type',
-//     'json',
-//     '--out',
-//     'out.json',
-
-//   ]);
-
-//   child.stdout.on('data', (data) => {
-//     console.log('stdout:\n', data);
-//   });
-//   child.stderr.on('data', (data) => {
-//     console.log('stderr:\n', Buffer.from(data).toString());
-//   });
-//   child.on('error', (error) => {
-//     console.log('error:\n', error);
-//   });
-//   child.on('exit', (code, signal) => {
-//     if (code) console.log('Process exit with code:', code);
-//     else if (signal) console.log('Process killed with signal:', signal);
-//     else console.log('Backup is successfull ');
-//   });
-
-// }
-
-//  backupMongoDB()

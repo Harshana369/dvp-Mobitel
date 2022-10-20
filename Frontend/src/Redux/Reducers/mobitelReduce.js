@@ -44,7 +44,6 @@ export const mobitelOverviewReducer = (state = { mobitelOverviewData: [] }, acti
       return state;
   }
 };
-
 export const mobitelChartColumnReducer = (state = { mobitelChartColumData: [] }, action) => {
   switch (action.type) {
     case MOBITEL_CHART_COLUMN_DATA_REQUEST:

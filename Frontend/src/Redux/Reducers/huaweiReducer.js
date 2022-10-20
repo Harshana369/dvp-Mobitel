@@ -24,9 +24,9 @@ export const huaweiDatabaseReducer = (state = { huaweiDatabaseData: [] }, action
     case HUAWEI_DATABASE_REQUEST:
       return { huaweiDatabaseLoading: true, huaweiDatabaseData: [] };
     case HUAWEI_DATABASE_SUCCESS:
-      return { huaweiDatabaseloading: false, huaweiDatabaseData: action.payload };
+      return { huaweiDatabaseLoading: false, huaweiDatabaseData: action.payload };
     case HUAWEI_DATABASE_FAIL:
-      return { huaweiDatabaseloading: false, error: action.payload };
+      return { huaweiDatabaseLoading: false, error: action.payload };
     default:
       return state;
   }

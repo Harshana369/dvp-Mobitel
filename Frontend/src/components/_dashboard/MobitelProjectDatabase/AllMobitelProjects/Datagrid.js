@@ -60,41 +60,41 @@ const useDummyMutation = () =>
     []
   );
 
-function CustomColumnMenuComponent(props) {
-  const [hidecol, setHidecol] = useState([]);
-  const { hideMenu, currentColumn } = props;
+// function CustomColumnMenuComponent(props) {
+//   const [hidecol, setHidecol] = useState([]);
+//   const { hideMenu, currentColumn } = props;
 
-  if (currentColumn.field) {
-    const { hideMenu, currentColumn } = props;
+//   if (currentColumn.field) {
+//     const { hideMenu, currentColumn } = props;
 
-    const golbleHide = (event) => {
-      const temp = [];
-      temp.push(currentColumn.field);
-      setHidecol(temp);
-      console.log(hidecol);
-    };
-    return (
-      // <GridColumnMenuContainer>
-      <>
-        <SortGridMenuItems onClick={hideMenu} column={currentColumn} />
-        <GridFilterMenuItem onClick={hideMenu} column={currentColumn} />
-        <MenuItem onClick={golbleHide}>Hide</MenuItem>
-      </>
+//     const golbleHide = (event) => {
+//       const temp = [];
+//       temp.push(currentColumn.field);
+//       setHidecol(temp);
+//       console.log(hidecol);
+//     };
+//     return (
+//       // <GridColumnMenuContainer>
+//       <>
+//         <SortGridMenuItems onClick={hideMenu} column={currentColumn} />
+//         <GridFilterMenuItem onClick={hideMenu} column={currentColumn} />
+//         <MenuItem onClick={golbleHide}>Hide</MenuItem>
+//       </>
 
-      //   {/* <MenuItem onClick={handleClose(currentColumn.field)}>Hide</MenuItem> */}
-      // </GridColumnMenuContainer>
+//       //   {/* <MenuItem onClick={handleClose(currentColumn.field)}>Hide</MenuItem> */}
+//       // </GridColumnMenuContainer>
 
-      // <GridColumnMenu hideMenu={hideMenu} currentColumn={currentColumn} />
-    );
-  }
-}
+//       // <GridColumnMenu hideMenu={hideMenu} currentColumn={currentColumn} />
+//     );
+//   }
+// }
 
-CustomColumnMenuComponent.propTypes = {
-  currentColumn: PropTypes.object.isRequired,
-  hideMenu: PropTypes.func.isRequired
-};
+// CustomColumnMenuComponent.propTypes = {
+//   currentColumn: PropTypes.object.isRequired,
+//   hideMenu: PropTypes.func.isRequired
+// };
 
-export { CustomColumnMenuComponent };
+// export { CustomColumnMenuComponent };
 
 export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
   const navigate = useNavigate();
@@ -282,122 +282,6 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
     <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />,
     'SaveAlt'
   );
-
-  const CustomToolbar = () => {
-    const apiRef = useGridApiContext();
-
-    const handleExport = (options) => apiRef.current.exportDataAsCsv(options);
-
-    const buttonBaseProps = {
-      color: 'primary',
-      size: 'small',
-      startIcon: <ExportIcon />
-    };
-
-    return (
-      <GridToolbarContainer>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0}>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            spacing={1}
-            mb={0}
-          >
-            <GridToolbarColumnsButton />
-            <GridToolbarFilterButton />
-            <GridToolbarDensitySelector />
-            <Button
-              {...buttonBaseProps}
-              onClick={() => handleExport({ getRowsToExport: getUnfilteredRows })}
-            >
-              All Database
-            </Button>
-            <Button
-              {...buttonBaseProps}
-              onClick={() => handleExport({ getRowsToExport: getFilteredRows })}
-            >
-              Filtered
-            </Button>
-            <Button
-              {...buttonBaseProps}
-              onClick={() => handleExport({ getRowsToExport: getRowsFromCurrentPage })}
-            >
-              Current page
-            </Button>
-          </Stack>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            spacing={1}
-            mb={0}
-          >
-            <Tooltip title="Refresh">
-              <IconButton
-                color="secondary"
-                style={{ float: 'right' }}
-                onClick={() => {
-                  fetchData();
-                  fetchProjectNames();
-                  fetchSiteEngineerNames();
-                }}
-              >
-                <RefreshIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Edit">
-              <IconButton
-                onClick={() => {
-                  const selectedIDs = selectionModel;
-                  if (selectedIDs.length === 1) {
-                    navigate(`/dashboard/DatabasesMobitelProjects/Edit/${selectionModel}`);
-                  } else if (selectedIDs.length === 0) {
-                    alert('Please select any project details to edit !');
-                  } else if (selectedIDs.length > 1) {
-                    alert('Can not edit multiple project details at once !');
-                  }
-                }}
-                aria-label="edit"
-                color="secondary"
-              >
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete">
-              <IconButton
-                style={{ float: 'right' }}
-                color="secondary"
-                onClick={() => {
-                  const selectedIDs = selectionModel;
-
-                  if (userPrivilage === 'Admin' && selectedIDs.length > 0) {
-                    const confirmBox = window.confirm('Do you want to delete this ?');
-                    if (confirmBox === true) {
-                      deleteUser(selectionModel);
-                    }
-                    fetchData();
-                  } else if (userPrivilage !== 'Admin' && selectedIDs.length > 1) {
-                    alert('Can not delete multiple project details at once !');
-                  } else if (selectedIDs.length === 0) {
-                    alert('Please select any project details to delete !');
-                  } else if (userPrivilage !== 'Admin' && selectedIDs.length === 1) {
-                    const confirmBox = window.confirm('Do you want to delete this ?');
-                    if (confirmBox === true) {
-                      deleteUser(selectionModel);
-                    }
-                    fetchData();
-                  }
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
-          </Stack>
-        </Stack>
-      </GridToolbarContainer>
-    );
-  };
 
   // -------------------------------------------------------------------------------------------------
   // ---------------------------- Columns ------------------------------------------------------------
@@ -1467,7 +1351,6 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
       cellClassName: (params) => clsx('super-app-theme--cell'),
       type: 'singleSelect',
       valueOptions: ['ZTE', 'Huawei', 'Mobitel Direct'],
-      hide: false,
       editable: true
     },
     {
@@ -1480,7 +1363,6 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
       cellClassName: (params) => clsx('super-app-theme--cell'),
       type: 'singleSelect',
       valueOptions: projectNames,
-      hide: false,
       editable: true
     },
     {
@@ -3636,11 +3518,150 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
     [editRowData]
   );
 
-  const [columnVisibilityModel, setColumnVisibilityModel] = React.useState({
-    Planning_ID: false,
-    Implementation_By: false,
-    Project: false
-  });
+  const CustomToolbar = () => {
+    const apiRef = useGridApiContext();
+
+    const handleExport = (options) => apiRef.current.exportDataAsCsv(options);
+
+    const buttonBaseProps = {
+      color: 'primary',
+      size: 'small',
+      startIcon: <ExportIcon />
+    };
+
+    return (
+      <GridToolbarContainer>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={1}
+            mb={0}
+          >
+            <GridToolbarColumnsButton />
+            <GridToolbarFilterButton />
+            <GridToolbarDensitySelector />
+            <Button
+              {...buttonBaseProps}
+              onClick={() => handleExport({ getRowsToExport: getUnfilteredRows })}
+            >
+              All Database
+            </Button>
+            <Button
+              {...buttonBaseProps}
+              onClick={() => handleExport({ getRowsToExport: getFilteredRows })}
+            >
+              Filtered
+            </Button>
+            <Button
+              {...buttonBaseProps}
+              onClick={() => handleExport({ getRowsToExport: getRowsFromCurrentPage })}
+            >
+              Current page
+            </Button>
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={1}
+            mb={0}
+          >
+            <Tooltip title="Refresh">
+              <IconButton
+                color="secondary"
+                style={{ float: 'right' }}
+                onClick={() => {
+                  fetchData();
+                  fetchProjectNames();
+                  fetchSiteEngineerNames();
+                }}
+              >
+                <RefreshIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit">
+              <IconButton
+                onClick={() => {
+                  const selectedIDs = selectionModel;
+                  if (selectedIDs.length === 1) {
+                    navigate(`/dashboard/DatabasesMobitelProjects/Edit/${selectionModel}`);
+                  } else if (selectedIDs.length === 0) {
+                    alert('Please select any project details to edit !');
+                  } else if (selectedIDs.length > 1) {
+                    alert('Can not edit multiple project details at once !');
+                  }
+                }}
+                aria-label="edit"
+                color="secondary"
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete">
+              <IconButton
+                style={{ float: 'right' }}
+                color="secondary"
+                onClick={() => {
+                  const selectedIDs = selectionModel;
+
+                  if (userPrivilage === 'Admin' && selectedIDs.length > 0) {
+                    const confirmBox = window.confirm('Do you want to delete this ?');
+                    if (confirmBox === true) {
+                      deleteUser(selectionModel);
+                    }
+                    fetchData();
+                  } else if (userPrivilage !== 'Admin' && selectedIDs.length > 1) {
+                    alert('Can not delete multiple project details at once !');
+                  } else if (selectedIDs.length === 0) {
+                    alert('Please select any project details to delete !');
+                  } else if (userPrivilage !== 'Admin' && selectedIDs.length === 1) {
+                    const confirmBox = window.confirm('Do you want to delete this ?');
+                    if (confirmBox === true) {
+                      deleteUser(selectionModel);
+                    }
+                    fetchData();
+                  }
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Stack>
+        </Stack>
+      </GridToolbarContainer>
+    );
+  };
+
+  const [columnVisibilityModel, setColumnVisibilityModel] = React.useState({});
+
+  const handleChange = (event) => {
+    setColumnVisibilityModel({
+      ...columnVisibilityModel,
+      [event.target.name]: event.target.checked
+    });
+  };
+
+  const getStudents = async () => {
+    await axios.get('http://localhost:8072/column/').then((res) => {
+      console.log(res.data);
+
+      setColumnVisibilityModel(res.data);
+    });
+  };
+
+  const updateColumn = async () => {
+    await axios.put('http://localhost:8072/column/Edit', columnVisibilityModel).then((res) => {});
+  };
+
+  React.useEffect(() => {
+    getStudents();
+  }, []);
+
+  React.useEffect(() => {
+    updateColumn();
+  }, [columnVisibilityModel]);
 
   return (
     <Box
@@ -3663,7 +3684,7 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
         apiRef={apiRef}
         rows={state}
         columns={Columns}
-        components={{ ColumnMenu: CustomColumnMenuComponent, Toolbar: CustomToolbar }}
+        components={{ Toolbar: CustomToolbar }}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowsPerPageOptions={[5, 10, 20, 50, 100]}

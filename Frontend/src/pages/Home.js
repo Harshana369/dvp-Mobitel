@@ -6,34 +6,11 @@ import windowsFilled from '@iconify/icons-eva/home-outline';
 // material
 import { Container, Stack, Typography } from '@mui/material';
 // components
-import {
-  fetchMobitelData,
-  fetchMobitelProjectNames,
-  fetchMobitelColumnGraphData,
-  fetchMobitelAreaGraphData,
-  fetchMobitelScopeData,
-  fetchMobitelLastUpdatesData
-} from '../Redux/Action/mobitelAction';
 
 import { ProductList } from '../components/_dashboard/Home';
 
 import Page from '../components/Page';
-import {
-  fetchHuaweiAreaGraphData,
-  fetchHuaweiColumnGraphData,
-  fetchHuaweiData,
-  fetchHuaweiProjectNames,
-  fetchHuaweiProjectsLastUpdates,
-  fetchHuaweiScopeData
-} from '../Redux/Action/huaweiAction';
-import {
-  fetchZTEAreaGraphData,
-  fetchZTEColumnGraphData,
-  fetchZTEData,
-  fetchZTEProjectNames,
-  fetchZTEProjectsLastUpdates,
-  fetchZTEScopeData
-} from '../Redux/Action/zteAction';
+
 /* eslint-disable */
 
 // ----------------------------------------------------------------------

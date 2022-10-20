@@ -39,11 +39,11 @@ export const fetchHuaweiData = (VendorHuaweiDropdownValue) => async (dispatch) =
   }
 };
 
-export const fetchHuaweiProjectNames = (VendorHuaweiDropdownValue) => async (dispatch) => {
+export const fetchHuaweiProjectNames = () => async (dispatch) => {
   try {
     dispatch({ type: HUAWEI_FILTERED_NAMES_REQUEST });
     const { data } = await axiosInstance.get('/filteredVendorProjectsNamesArray', {
-      params: { Project: VendorHuaweiDropdownValue }
+      params: { Vendor: 'Huawei' }
     });
 
     dispatch({ type: HUAWEI_FILTERED_NAMES_SUCCESS, payload: data });
