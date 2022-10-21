@@ -3644,7 +3644,7 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
   };
 
   const getStudents = async () => {
-    await axios.get('http://localhost:8072/column/').then((res) => {
+    await axiosInstance.get('/column/').then((res) => {
       console.log(res.data);
 
       setColumnVisibilityModel(res.data);
@@ -3652,7 +3652,7 @@ export default function Datagrid({ DropDownValue, ProjectNameDropdownValue }) {
   };
 
   const updateColumn = async () => {
-    await axios.put('http://localhost:8072/column/Edit', columnVisibilityModel).then((res) => {});
+    await axiosInstance.put('/column/Edit', columnVisibilityModel).then((res) => {});
   };
 
   React.useEffect(() => {

@@ -71,6 +71,7 @@ const mobitelProjectsLastUpdates = require("./routes/MobitelDatabaseTableRoutes/
 const vendorProjectsLastUpdates = require("./routes/VendorDatabaseTableRoutes/vendorProjectsLastUpdatesRoutes.js");
 
 const mobitelColumnHideShow = require("./routes/columnShowHide/mobitelDatabase.js");
+const materialProjectsDatabase = require("./routes/MaterialDatabaseRoutes.js");
 
 // Error Handler Middleware
 app.use(errorHandler);
@@ -116,6 +117,7 @@ app.use(vendorDatabasesPendingTasks);
 
 app.use(mobitelProjectsLastUpdates);
 app.use(vendorProjectsLastUpdates);
+app.use(materialProjectsDatabase);
 
 app.use("/column", mobitelColumnHideShow);
 
