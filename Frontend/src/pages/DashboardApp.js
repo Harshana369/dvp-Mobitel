@@ -92,7 +92,6 @@ export default function DashboardApp() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ]);
 
@@ -111,7 +110,6 @@ export default function DashboardApp() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ]);
 
@@ -125,7 +123,6 @@ export default function DashboardApp() {
   ]);
 
   const [ChartDataForAreaGraphZTE, setChartDatForAreaGraphZTE] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -674,32 +671,29 @@ export default function DashboardApp() {
 
   // ----------------- Sum of two vendors Chart Data For Area Graph --------------------
 
-  const Site_Ho_Huawei = ChartDataForAreaGraphHuawei[0];
-  const Site_HO_ZTE = ChartDataForAreaGraphZTE[0];
-  const Allvendor_Site_Ho = Site_Ho_Huawei.map((a, i) => a + Site_HO_ZTE[i]);
   //--------------------------------------------------
-  const On_Air_Huawei = ChartDataForAreaGraphHuawei[1];
-  const On_Air_ZTE = ChartDataForAreaGraphZTE[1];
+  const On_Air_Huawei = ChartDataForAreaGraphHuawei[0];
+  const On_Air_ZTE = ChartDataForAreaGraphZTE[0];
   const Allvendor_On_Air = On_Air_Huawei.map((a, i) => a + On_Air_ZTE[i]);
   //---------------------------------------------------
-  const PTA_Pass_Huawei = ChartDataForAreaGraphHuawei[2];
-  const PTA_Pass_ZTE = ChartDataForAreaGraphZTE[2];
+  const PTA_Pass_Huawei = ChartDataForAreaGraphHuawei[1];
+  const PTA_Pass_ZTE = ChartDataForAreaGraphZTE[1];
   const Allvendor_PTA_Pass = PTA_Pass_Huawei.map((a, i) => a + PTA_Pass_ZTE[i]);
   //---------------------------------------------------
-  const SAR_Huawei = ChartDataForAreaGraphHuawei[3];
-  const SAR_ZTE = ChartDataForAreaGraphZTE[3];
+  const SAR_Huawei = ChartDataForAreaGraphHuawei[2];
+  const SAR_ZTE = ChartDataForAreaGraphZTE[2];
   const Allvendor_SAR = SAR_Huawei.map((a, i) => a + SAR_ZTE[i]);
   //---------------------------------------------------
-  const Commisioned_Huawei = ChartDataForAreaGraphHuawei[4];
-  const Commisioned_ZTE = ChartDataForAreaGraphZTE[4];
+  const Commisioned_Huawei = ChartDataForAreaGraphHuawei[3];
+  const Commisioned_ZTE = ChartDataForAreaGraphZTE[3];
   const Allvendor_Commisioned = Commisioned_Huawei.map((a, i) => a + Commisioned_ZTE[i]);
   //---------------------------------------------------
-  const Installed_Huawei = ChartDataForAreaGraphHuawei[5];
-  const Installed_ZTE = ChartDataForAreaGraphZTE[5];
+  const Installed_Huawei = ChartDataForAreaGraphHuawei[4];
+  const Installed_ZTE = ChartDataForAreaGraphZTE[4];
   const Allvendor_Installed = Installed_Huawei.map((a, i) => a + Installed_ZTE[i]);
   //--------------------------------------------------
-  const Mobilized_Huawei = ChartDataForAreaGraphHuawei[6];
-  const Mobilized_ZTE = ChartDataForAreaGraphZTE[6];
+  const Mobilized_Huawei = ChartDataForAreaGraphHuawei[5];
+  const Mobilized_ZTE = ChartDataForAreaGraphZTE[5];
   const Allvendor_Mobilized = Mobilized_Huawei.map((a, i) => a + Mobilized_ZTE[i]);
   //-----------------------------------------------
 
@@ -711,44 +705,39 @@ export default function DashboardApp() {
     Allvendor_SAR,
     Allvendor_Commisioned,
     Allvendor_Installed,
-    Allvendor_Mobilized,
-    Allvendor_Site_Ho
+    Allvendor_Mobilized
   ];
 
   //-----------------------------------------------------------------------------------
 
-  const A_Ho_1 = ChartDataForAreaGraphMobitel[0];
-  const A_Ho_2 = ChartDataForAreaGraphVendor[0];
-  const A_Ho = A_Ho_1.map((a, i) => a + A_Ho_2[i]);
-
   // --------------------------------------------
-  const A_On_Air1 = ChartDataForAreaGraphMobitel[1];
-  const A_On_Air2 = ChartDataForAreaGraphVendor[1];
+  const A_On_Air1 = ChartDataForAreaGraphMobitel[0];
+  const A_On_Air2 = ChartDataForAreaGraphVendor[0];
   const A_On_Air = A_On_Air1.map((a, i) => a + A_On_Air2[i]);
 
   //---------------------------------------------
-  const A_PAT_Pass1 = ChartDataForAreaGraphMobitel[2];
-  const A_PAT_Pass2 = ChartDataForAreaGraphVendor[2];
+  const A_PAT_Pass1 = ChartDataForAreaGraphMobitel[1];
+  const A_PAT_Pass2 = ChartDataForAreaGraphVendor[1];
   const A_PAT_Pass = A_PAT_Pass1.map((a, i) => a + A_PAT_Pass2[i]);
   //--------------------------------------------
 
-  const A_SAR_1 = ChartDataForAreaGraphMobitel[3];
-  const A_SAR_2 = ChartDataForAreaGraphVendor[3];
+  const A_SAR_1 = ChartDataForAreaGraphMobitel[2];
+  const A_SAR_2 = ChartDataForAreaGraphVendor[2];
   const A_SAR = A_SAR_1.map((a, i) => a + A_SAR_2[i]);
   //--------------------------------------------
 
-  const A_Commisioned_1 = ChartDataForAreaGraphMobitel[4];
-  const A_Commisioned_2 = ChartDataForAreaGraphVendor[4];
+  const A_Commisioned_1 = ChartDataForAreaGraphMobitel[3];
+  const A_Commisioned_2 = ChartDataForAreaGraphVendor[3];
   const A_Commisioned = A_Commisioned_1.map((a, i) => a + A_Commisioned_2[i]);
   //---------------------------------------------
 
-  const A_Installed_1 = ChartDataForAreaGraphMobitel[5];
-  const A_Installed_2 = ChartDataForAreaGraphVendor[5];
+  const A_Installed_1 = ChartDataForAreaGraphMobitel[4];
+  const A_Installed_2 = ChartDataForAreaGraphVendor[4];
   const A_Installed = A_Installed_1.map((a, i) => a + A_Installed_2[i]);
   //---------------------------------------------
 
-  const A_Mobilized_1 = ChartDataForAreaGraphMobitel[6];
-  const A_Mobilized_2 = ChartDataForAreaGraphVendor[6];
+  const A_Mobilized_1 = ChartDataForAreaGraphMobitel[5];
+  const A_Mobilized_2 = ChartDataForAreaGraphVendor[5];
   const A_Mobilized = A_Mobilized_1.map((a, i) => a + A_Mobilized_2[i]);
   //---------------------------------------------
 
@@ -760,84 +749,92 @@ export default function DashboardApp() {
     { name: 'SAR', type: 'area', data: A_SAR },
     { name: 'Commisioned', type: 'area', data: A_Commisioned },
     { name: 'Installed', type: 'area', data: A_Installed },
-    { name: 'Mobilized', type: 'area', data: A_Mobilized },
-    { name: 'Ho', type: 'area', data: A_Ho }
+    { name: 'Mobilized', type: 'area', data: A_Mobilized }
   );
 
-  function transparentize(value, opacity) {
-    const alpha = opacity === undefined ? 0.5 : 1 - opacity;
-    return colorLib(value).alpha(alpha).rgbString();
-  }
+  // function transparentize(value, opacity) {
+  //   const alpha = opacity === undefined ? 0.5 : 1 - opacity;
+  //   return colorLib(value).alpha(alpha).rgbString();
+  // }
 
-  const areachat_chart_one = {
-    dataLine: {
-      labels: XaxisDataMobitelAreaGraph,
-      datasets: [
-        {
-          label: areaChartData[0].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(80, 143, 31)'),
-          borderColor: 'rgb(80, 143, 31)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: areaChartData[0].data
-        },
-        {
-          label: areaChartData[1].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(255, 231, 0)'),
-          borderColor: 'rgb(255, 231, 0)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: areaChartData[1].data
-        },
-        {
-          label: areaChartData[2].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(45, 153, 255)'),
-          borderColor: 'rgb(45, 153, 255)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: areaChartData[2].data
-        },
-        {
-          label: areaChartData[3].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(130, 106, 249)'),
-          borderColor: 'rgb(130, 106, 249)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: areaChartData[3].data
-        },
-        {
-          label: areaChartData[4].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(44, 217, 197)'),
-          borderColor: 'rgb(44, 217, 197)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: areaChartData[4].data
-        },
-        {
-          label: areaChartData[5].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(255, 108, 64)'),
-          borderColor: 'rgb(255, 108, 64)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: areaChartData[5].data
-        },
-        {
-          label: areaChartData[6].name,
-          fill: true,
-          backgroundColor: transparentize('rgb(91, 229, 132)'),
-          borderColor: 'rgb(91, 229, 132)',
-          pointHoverBackgroundColor: 'rgb(0,0,0)',
-          pointHoverRadius: 12,
-          data: areaChartData[6].data
-        }
-      ]
-    }
+  // const areachat_chart_one = {
+  //   dataLine: {
+  //     labels: XaxisDataMobitelAreaGraph,
+  //     datasets: [
+  //       {
+  //         label: areaChartData[0].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(80, 143, 31)'),
+  //         borderColor: 'rgb(80, 143, 31)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: areaChartData[0].data
+  //       },
+  //       {
+  //         label: areaChartData[1].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(255, 231, 0)'),
+  //         borderColor: 'rgb(255, 231, 0)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: areaChartData[1].data
+  //       },
+  //       {
+  //         label: areaChartData[2].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(45, 153, 255)'),
+  //         borderColor: 'rgb(45, 153, 255)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: areaChartData[2].data
+  //       },
+  //       {
+  //         label: areaChartData[3].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(130, 106, 249)'),
+  //         borderColor: 'rgb(130, 106, 249)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: areaChartData[3].data
+  //       },
+  //       {
+  //         label: areaChartData[4].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(44, 217, 197)'),
+  //         borderColor: 'rgb(44, 217, 197)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: areaChartData[4].data
+  //       },
+  //       {
+  //         label: areaChartData[5].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(255, 108, 64)'),
+  //         borderColor: 'rgb(255, 108, 64)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: areaChartData[5].data
+  //       },
+  //       {
+  //         label: areaChartData[6].name,
+  //         fill: true,
+  //         backgroundColor: transparentize('rgb(91, 229, 132)'),
+  //         borderColor: 'rgb(91, 229, 132)',
+  //         pointHoverBackgroundColor: 'rgb(0,0,0)',
+  //         pointHoverRadius: 12,
+  //         data: areaChartData[6].data
+  //       }
+  //     ]
+  //   }
+  // };
+
+  const chack = (event) => {
+    console.log('-------------------');
+    console.log(ChartDataForAreaGraphMobitel);
+    console.log(XaxisDataMobitelAreaGraph);
+    console.log(ChartDataForAreaGraphHuawei);
+    console.log(ChartDataForAreaGraphZTE);
+    console.log('-------------------');
   };
 
   return (
@@ -847,6 +844,9 @@ export default function DashboardApp() {
           <Typography variant="h6" gutterBottom>
             All Projects Overview
           </Typography>
+          {/* <Button variant="text" onClick={chack}>
+            Text
+          </Button> */}
         </Stack>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
           <Typography variant="caption1">Select Options</Typography>
@@ -946,13 +946,13 @@ export default function DashboardApp() {
             </Grid>
           )}
 
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+          {/* <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <MDBContainer style={{ backgroundColor: 'rgb(4, 20, 38)', borderRadius: '15px' }}>
               <CardHeader title="All Sites Completed" subheader="Cumilative progress" />
 
               <Line data={areachat_chart_one.dataLine} />
             </MDBContainer>
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <AppWebsiteVisits chartData={areaChartData} xaxisData={XaxisDataMobitelAreaGraph} />

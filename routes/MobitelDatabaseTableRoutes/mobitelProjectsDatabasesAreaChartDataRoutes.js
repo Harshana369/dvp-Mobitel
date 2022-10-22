@@ -92,14 +92,12 @@ function getXaxisData() {
 //---------------------------------------------------------------------------------------------------------------------------
 
 function getchartData(posts) {
-  //   console.log(posts);
   var mobilizeData = [];
   var installedData = [];
   var commissioned = [];
   var sarData = [];
   var patData = [];
   var onairData = [];
-  var siteHoData = [];
 
   var theMonths = new Array(
     "01",
@@ -174,11 +172,8 @@ function getchartData(posts) {
         .filter(
           (obj) => obj.On_Air_Date.slice(0, 7) === monthsArray[i]
         ).length);
-
-    siteHoData[i] = posts
-      .filter((obj) => obj.HO_Date !== "")
-      .filter((obj) => obj.HO_Date.slice(0, 7) === monthsArray[i]).length;
   }
+
   // ----------------------------------------------------------------------------------------------------------------------------------------------
 
   let myarray1 = mobilizeData,
@@ -193,9 +188,6 @@ function getchartData(posts) {
     cumilative5 = [];
   let myarray6 = onairData,
     cumilative6 = [];
-  let myarray7 = siteHoData,
-     cumilative7 = [];
-
 
   for (let i = 0, s = myarray1[0]; i < myarray1.length; i++, s += myarray1[i])
     cumilative1.push(s);
@@ -209,18 +201,8 @@ function getchartData(posts) {
     cumilative5.push(s);
   for (let i = 0, s = myarray6[0]; i < myarray6.length; i++, s += myarray6[i])
     cumilative6.push(s);
-  for (let i = 0, s = myarray7[0]; i < myarray7.length; i++, s += myarray7[i])
-    cumilative7.push(s);
-
-  
 
   let chartData = [];
-
-
- let LastYearCum7 = cumilative7.slice(
-    cumilative7.length - 12,
-    cumilative7.length
-  ); // Ho
 
   let LastYearCum6 = cumilative6.slice(
     cumilative6.length - 12,
@@ -248,7 +230,6 @@ function getchartData(posts) {
   ); // Mobilized
 
   chartData.push(
-    LastYearCum7,
     LastYearCum6,
     LastYearCum5,
     LastYearCum4,
