@@ -27,7 +27,7 @@ export default function Material() {
   const [data, setData] = useState();
   const [columns, setColumns] = useState();
 
-  const getMateriyalColumns = async () => {
+  const getMateriyalColumnsAndData = async () => {
     await axiosInstance.get('/materialProjectsDatabases/getall').then((res) => {
       // console.log(res.data.success[0].taskHistory);
       setColumns(res.data.success[0].headerproperties);
@@ -36,7 +36,7 @@ export default function Material() {
   };
 
   useEffect(() => {
-    getMateriyalColumns();
+    getMateriyalColumnsAndData();
   }, []);
   return (
     <Page title="Mobitel Projects Databases | Projects Management Database">
@@ -48,6 +48,18 @@ export default function Material() {
           title="Material Data"
           data={data}
           columns={columns}
+          editable={
+            {
+              // onRowAdd: (newRow) =>
+              //   new Promise((resolve, reject) => {
+              //     const updatedRows = [...data, { id: Math.floor(Math.random() * 100), ...newRow }];
+              //     setTimeout(() => {
+              //       setData(updatedRows);
+              //       resolve();
+              //     }, 2000);
+              //   })
+            }
+          }
           options={{ filtering: true }}
         />
       </Box>

@@ -16,8 +16,8 @@ const subSchemaproperties = new mongoose.Schema({
   // email: reqString,
 
   id: reqString,
-  erpDescription: reqString,
-  category: reqString,
+  ERP_Description: reqString,
+  Category: reqString,
 });
 
 const dataSchema = new mongoose.Schema({

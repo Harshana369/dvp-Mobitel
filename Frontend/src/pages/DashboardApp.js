@@ -828,15 +828,6 @@ export default function DashboardApp() {
   //   }
   // };
 
-  const chack = (event) => {
-    console.log('-------------------');
-    console.log(ChartDataForAreaGraphMobitel);
-    console.log(XaxisDataMobitelAreaGraph);
-    console.log(ChartDataForAreaGraphHuawei);
-    console.log(ChartDataForAreaGraphZTE);
-    console.log('-------------------');
-  };
-
   return (
     <Page title="Dashboard | Mobitel Projects Dashboard">
       <Container maxWidth="xl">
@@ -844,9 +835,6 @@ export default function DashboardApp() {
           <Typography variant="h6" gutterBottom>
             All Projects Overview
           </Typography>
-          {/* <Button variant="text" onClick={chack}>
-            Text
-          </Button> */}
         </Stack>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
           <Typography variant="caption1">Select Options</Typography>
