@@ -5,9 +5,6 @@ const Posts = require("../models/MaterialDatabase");
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 router.post("/materialProjectsDatabases/save/:id", async (req, res) => {
-  console.log("ok");
-  console.log(req.params.id);
-  console.log(req.body);
   const objID = req.params.id;
 
   const artist = await Posts.updateOne(
