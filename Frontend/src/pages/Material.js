@@ -48,18 +48,16 @@ export default function Material() {
           title="Material Data"
           data={data}
           columns={columns}
-          editable={
-            {
-              // onRowAdd: (newRow) =>
-              //   new Promise((resolve, reject) => {
-              //     const updatedRows = [...data, { id: Math.floor(Math.random() * 100), ...newRow }];
-              //     setTimeout(() => {
-              //       setData(updatedRows);
-              //       resolve();
-              //     }, 2000);
-              //   })
-            }
-          }
+          editable={{
+            onRowAdd: (newRow) =>
+              new Promise((resolve, reject) => {
+                const updatedRows = [...data, { id: Math.floor(Math.random() * 100), ...newRow }];
+                setTimeout(() => {
+                  setData(updatedRows);
+                  resolve();
+                }, 2000);
+              })
+          }}
           options={{ filtering: true }}
         />
       </Box>
